@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C36147951B14E3D900512A9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147941B14E3D900512A9E /* LoginViewController.swift */; };
+		C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147961B14E85200512A9E /* SignUpViewController.swift */; };
+		C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147981B14EFE200512A9E /* HomeViewController.swift */; };
+		C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479A1B14FC8900512A9E /* ProfileViewController.swift */; };
+		C361479D1B1502A300512A9E /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479C1B1502A300512A9E /* BooksViewController.swift */; };
+		C361479F1B1502C100512A9E /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479E1B1502C100512A9E /* LocationsViewController.swift */; };
 		FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41CC1B13BA61003C2F87 /* AppDelegate.swift */; };
 		FF0A41CF1B13BA61003C2F87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41CE1B13BA61003C2F87 /* ViewController.swift */; };
 		FF0A41D21B13BA61003C2F87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0A41D01B13BA61003C2F87 /* Main.storyboard */; };
@@ -26,6 +32,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C36147941B14E3D900512A9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C36147961B14E85200512A9E /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C36147981B14EFE200512A9E /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C361479A1B14FC8900512A9E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C361479C1B1502A300512A9E /* BooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
+		C361479E1B1502C100512A9E /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		FF0A41C71B13BA61003C2F87 /* ProjetoLivro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjetoLivro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0A41CB1B13BA61003C2F87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF0A41CC1B13BA61003C2F87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +95,12 @@
 				FF0A41D31B13BA61003C2F87 /* Images.xcassets */,
 				FF0A41D51B13BA61003C2F87 /* LaunchScreen.xib */,
 				FF0A41CA1B13BA61003C2F87 /* Supporting Files */,
+				C36147941B14E3D900512A9E /* LoginViewController.swift */,
+				C36147961B14E85200512A9E /* SignUpViewController.swift */,
+				C36147981B14EFE200512A9E /* HomeViewController.swift */,
+				C361479A1B14FC8900512A9E /* ProfileViewController.swift */,
+				C361479C1B1502A300512A9E /* BooksViewController.swift */,
+				C361479E1B1502C100512A9E /* LocationsViewController.swift */,
 			);
 			path = ProjetoLivro;
 			sourceTree = "<group>";
@@ -212,8 +230,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */,
+				C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */,
+				C36147951B14E3D900512A9E /* LoginViewController.swift in Sources */,
+				C361479F1B1502C100512A9E /* LocationsViewController.swift in Sources */,
 				FF0A41CF1B13BA61003C2F87 /* ViewController.swift in Sources */,
+				C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */,
 				FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */,
+				C361479D1B1502A300512A9E /* BooksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +435,7 @@
 				FF0A41E81B13BA61003C2F87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FF0A41E91B13BA61003C2F87 /* Build configuration list for PBXNativeTarget "ProjetoLivroTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +444,7 @@
 				FF0A41EB1B13BA61003C2F87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
