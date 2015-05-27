@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C33E050C1B1630EF0081CC7D /* RecoverPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33E050B1B1630EF0081CC7D /* RecoverPasswordViewController.swift */; };
 		C36147951B14E3D900512A9E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147941B14E3D900512A9E /* LoginViewController.swift */; };
 		C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147961B14E85200512A9E /* SignUpViewController.swift */; };
 		C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36147981B14EFE200512A9E /* HomeViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C33E050B1B1630EF0081CC7D /* RecoverPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoverPasswordViewController.swift; sourceTree = "<group>"; };
 		C36147941B14E3D900512A9E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C36147961B14E85200512A9E /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C36147981B14EFE200512A9E /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				C361479A1B14FC8900512A9E /* ProfileViewController.swift */,
 				C361479C1B1502A300512A9E /* BooksViewController.swift */,
 				C361479E1B1502C100512A9E /* LocationsViewController.swift */,
+				C33E050B1B1630EF0081CC7D /* RecoverPasswordViewController.swift */,
 			);
 			path = ProjetoLivro;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				C36147951B14E3D900512A9E /* LoginViewController.swift in Sources */,
 				C361479F1B1502C100512A9E /* LocationsViewController.swift in Sources */,
 				FF0A41CF1B13BA61003C2F87 /* ViewController.swift in Sources */,
+				C33E050C1B1630EF0081CC7D /* RecoverPasswordViewController.swift in Sources */,
 				C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */,
 				FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */,
 				FF0A41F01B15058C003C2F87 /* User.swift in Sources */,

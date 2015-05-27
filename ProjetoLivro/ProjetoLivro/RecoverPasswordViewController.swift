@@ -1,14 +1,14 @@
 //
-//  BooksViewController.swift
+//  RecoverPasswordViewController.swift
 //  ProjetoLivro
 //
-//  Created by Bruno Pereira dos Santos on 5/26/15.
+//  Created by Bruno Pereira dos Santos on 5/27/15.
 //  Copyright (c) 2015 ABCD. All rights reserved.
 //
 
 import UIKit
 
-class BooksViewController: UIViewController {
+class RecoverPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,10 @@ class BooksViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func createBook(sender: AnyObject) {
+    @IBOutlet weak var emailField: UITextField!
+    
+    @IBAction func sendRecoverPasswordInstructions(sender: AnyObject) {
     }
-
 
     /*
     // MARK: - Navigation
