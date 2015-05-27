@@ -564,10 +564,10 @@
             </objects>
             <point key="canvasLocation" x="1818.5" y="2150.5"/>
         </scene>
-        <!--View Controller-->
+        <!--New Book View Controller-->
         <scene sceneID="WFC-FI-cDg">
             <objects>
-                <viewController id="0ZQ-6S-jTR" customClass="ViewController" customModule="ProjetoLivro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0ZQ-6S-jTR" customClass="NewBookViewController" customModule="ProjetoLivro" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ekj-ed-6Jn"/>
                         <viewControllerLayoutGuide type="bottom" id="87B-O0-7e6"/>

@@ -24,6 +24,7 @@
 		FF0A41F01B15058C003C2F87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41EF1B15058C003C2F87 /* User.swift */; };
 		FF0A41F41B15F7DF003C2F87 /* CloudAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */; };
 		FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0A41F51B163FCA003C2F87 /* alphaBody.png */; };
+		FF0A41F81B164F15003C2F87 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		FF0A41EF1B15058C003C2F87 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccess.swift; sourceTree = "<group>"; };
 		FF0A41F51B163FCA003C2F87 /* alphaBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alphaBody.png; sourceTree = "<group>"; };
+		FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				C361479C1B1502A300512A9E /* BooksViewController.swift */,
 				C361479E1B1502C100512A9E /* LocationsViewController.swift */,
 				C33E050B1B1630EF0081CC7D /* RecoverPasswordViewController.swift */,
+				FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */,
 			);
 			path = ProjetoLivro;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */,
 				FF0A41F01B15058C003C2F87 /* User.swift in Sources */,
 				FF0A41F41B15F7DF003C2F87 /* CloudAccess.swift in Sources */,
+				FF0A41F81B164F15003C2F87 /* NewBookViewController.swift in Sources */,
 				C361479D1B1502A300512A9E /* BooksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
