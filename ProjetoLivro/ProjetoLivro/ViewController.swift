@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol CloudAccessDelegate {
+    func userRegistered(success:Bool)
+    func userReturned(user:User!)
+    func userError(error:NSError!, auxiliar:String!)
+}
+
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
