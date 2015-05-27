@@ -28,6 +28,10 @@ class LoginViewController: UIViewController, CloudLoginDelegate {
     
     func loginSuccessful(user:User!) {
         println("login!")
+        
+        
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController
+        self.showViewController(secondViewController, sender: true)
     }
     
     func loginFailed(error:NSError!,auxiliar:String!) {
