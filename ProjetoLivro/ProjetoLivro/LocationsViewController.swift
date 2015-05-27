@@ -9,17 +9,15 @@
 import UIKit
 import CoreLocation
 
-class LocationsViewController: UIViewController {
+class LocationsViewController: UIViewController, CLLocationManagerDelegate {
 
+    var locationManager:CLLocationManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
     }
     
     @IBAction func createLocation(sender: AnyObject) {

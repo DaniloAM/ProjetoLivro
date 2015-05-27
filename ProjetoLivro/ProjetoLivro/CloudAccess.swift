@@ -41,8 +41,6 @@ class CloudAccess: NSObject {
         record.setValue(user.lastName, forKey: "LastName")
         record.setValue(user.email, forKey: "Email")
         record.setValue(user.password, forKey: "Password")
-        record.setValue(NSDate(), forKey: "CreatedAt")
-        record.setValue(NSDate(), forKey: "UpdatedAt")
         addImageToRecord(record, image: user.photo, key: "Photo")
         
         publicData.saveRecord(record, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
