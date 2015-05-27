@@ -14,13 +14,15 @@ class User: NSObject {
     var lastName:String!
     var password:String!
     var photo:UIImage!
+    var userID:String?
 
-    init(email:String, name:String, lastName:String,password:String,photo:UIImage?) {
+    init(email:String!, name:String!, lastName:String!,password:String!,photo:UIImage!,userID:String?) {
         self.name = name
         self.lastName = lastName
         self.email = email
         self.password = password
         self.photo = photo
+        self.userID = userID
     }
     
     func checkUserValid() ->Bool {

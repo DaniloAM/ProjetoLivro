@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LocationsViewController: UIViewController {
 
@@ -22,6 +23,9 @@ class LocationsViewController: UIViewController {
     }
     
     @IBAction func createLocation(sender: AnyObject) {
+        
+        
+    
     }
 
     /*

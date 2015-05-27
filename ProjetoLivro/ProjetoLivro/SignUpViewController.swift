@@ -44,13 +44,13 @@ class SignUpViewController: UIViewController, CloudRegisterDelegate, UITextField
     
     
     @IBAction func signUp(sender: UIButton) {
-        var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, photo: imageField.image)
+        var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, photo: imageField.image, userID: nil)
         
         cloudAccess.registerUser(newUser)
         
     }
     
-    func userRegistered() {
+    func userRegistered(user: User!) {
         println("registered!")
         self.navigationController?.popViewControllerAnimated(true)
     }
