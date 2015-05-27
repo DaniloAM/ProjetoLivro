@@ -15,7 +15,7 @@ class User: NSObject {
     var password:String!
     var photo:UIImage!
 
-    init(email:String, name:String, lastName:String,password:String,photo:UIImage) {
+    init(email:String, name:String, lastName:String,password:String,photo:UIImage?) {
         self.name = name
         self.lastName = lastName
         self.email = email

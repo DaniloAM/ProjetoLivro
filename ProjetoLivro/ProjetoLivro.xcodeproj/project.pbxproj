@@ -23,6 +23,7 @@
 		FF0A41EE1B13BB6A003C2F87 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0A41ED1B13BB6A003C2F87 /* CloudKit.framework */; };
 		FF0A41F01B15058C003C2F87 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41EF1B15058C003C2F87 /* User.swift */; };
 		FF0A41F41B15F7DF003C2F87 /* CloudAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */; };
+		FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0A41F51B163FCA003C2F87 /* alphaBody.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		FF0A41ED1B13BB6A003C2F87 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FF0A41EF1B15058C003C2F87 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccess.swift; sourceTree = "<group>"; };
+		FF0A41F51B163FCA003C2F87 /* alphaBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alphaBody.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		FF0A41CA1B13BA61003C2F87 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FF0A41F51B163FCA003C2F87 /* alphaBody.png */,
 				FF0A41CB1B13BA61003C2F87 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */,
 				FF0A41D21B13BA61003C2F87 /* Main.storyboard in Resources */,
 				FF0A41D71B13BA61003C2F87 /* LaunchScreen.xib in Resources */,
 				FF0A41D41B13BA61003C2F87 /* Images.xcassets in Resources */,

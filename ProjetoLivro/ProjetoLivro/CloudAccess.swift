@@ -9,43 +9,58 @@
 import UIKit
 import CloudKit
 
+protocol CloudLoginDelegate {
+    func loginSuccessful(user:User!)
+    func loginFailed(error:NSError!,auxiliar:String!)
+}
+
+protocol CloudRegisterDelegate {
+    func userRegistered()
+    func registerError(error:NSError!, auxiliar:String!)
+}
+
 class CloudAccess: NSObject {
     var container: CKContainer
     var publicData: CKDatabase
-    var delegate: CloudAccessDelegate?
+    var privateData: CKDatabase
+    var loginDelegate: CloudLoginDelegate?
+    var registerDelegate: CloudRegisterDelegate?
     
     override init() {
         container = CKContainer.defaultContainer()
         publicData = container.publicCloudDatabase
+        privateData = container.privateCloudDatabase
     }
     
     func registerUser(user:User) {
+
+        let record = CKRecord(recordType: "User")
         
-        if user.checkUserValid() {
-            
-            let record = CKRecord(recordType: "User")
-    
-            record.setValue(user.name, forKey: "Name")
-            record.setValue(user.lastName, forKey: "LastName")
-            record.setValue(user.email, forKey: "Email")
-            record.setValue(user.password, forKey: "Password")
-            record.setValue(NSData(), forKey: "CreatedAt")
-            record.setValue(NSData(), forKey: "UpdatedAt")
-            addImageToRecord(record, image: user.photo, key: "Photo")
-            
-            publicData.saveRecord(record, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
-                println(error)
-                self.delegate?.userError(error,auxiliar: nil)
-                self.delegate?.userRegistered(false)
+        record.setValue(user.name, forKey: "Name")
+        record.setValue(user.lastName, forKey: "LastName")
+        record.setValue(user.email, forKey: "Email")
+        record.setValue(user.password, forKey: "Password")
+        record.setValue(NSDate(), forKey: "CreatedAt")
+        record.setValue(NSDate(), forKey: "UpdatedAt")
+        addImageToRecord(record, image: user.photo, key: "Photo")
+        
+        publicData.saveRecord(record, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
+            //Error in recording
+            dispatch_async(dispatch_get_main_queue()) {
+                self.registerDelegate?.registerError(error,auxiliar: nil)
             }
-                
-            else {
-                    self.delegate?.userRegistered(true)
-                }
-            })
-            
         }
-    
+            
+        else {
+            //Registration successful
+            dispatch_async(dispatch_get_main_queue()) {
+                self.registerDelegate?.userRegistered()
+            }
+            }
+        })
+        
+        
+        
     }
     
     func addImageToRecord(record:CKRecord,image:UIImage, key:String) ->Bool {
@@ -97,15 +112,35 @@ class CloudAccess: NSObject {
                     if let image: UIImage = self.takeImageFromRecord(record, key: "Photo") {
                         newUser = User(email: record.objectForKey("Email") as! String, name: record.objectForKey("Name") as! String, lastName: record.objectForKey("LastName") as! String, password: record.objectForKey("Password") as! String, photo: image)
                         
-                        self.delegate?.userReturned(newUser)
+                        //Found user
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.loginDelegate?.loginSuccessful(newUser)
+                        }
                     }
                     
                     else {
-                        self.delegate?.userError(nil, auxiliar: "Failed to open the user image")
+                        //Image error
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.loginDelegate?.loginFailed(nil, auxiliar: "Failed to open the user image")
+                        }
                     }
                     
                     
                     
+                }
+                
+                else {
+                    //No errors, but no user found with this email and password
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.loginDelegate?.loginFailed(error, auxiliar: "Email and/or password not found")
+                    }
+                }
+            }
+            
+            else {
+                //Some error occurred
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.loginDelegate?.loginFailed(error, auxiliar: "Error")
                 }
             }
         }
