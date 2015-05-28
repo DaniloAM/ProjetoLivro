@@ -9,8 +9,9 @@
 import UIKit
 import CoreLocation
 
-class LocationsViewController: UIViewController, CLLocationManagerDelegate, UIAlertViewDelegate {
+class LocationsViewController: UIViewController, LocationCreationDelegate, CLLocationManagerDelegate {
 
+    
     var locationManager:CLLocationManager!
     var canGiveLocation: Bool!
     
@@ -37,53 +38,64 @@ class LocationsViewController: UIViewController, CLLocationManagerDelegate, UIAl
     
     @IBAction func createLocation(sender: AnyObject) {
         
-        if canGiveLocation == true {
-            locationManager.startUpdatingLocation()
-            locationManager.location.coordinate
-            
-            var geoCoder = CLGeocoder()
-            var newLocation = LocationObject()
-            
-            newLocation.location = locationManager.location
-            
-            geoCoder.reverseGeocodeLocation(self.locationManager.location, completionHandler: { (placemarks, error) -> Void in
-                let placeArray = placemarks as! [CLPlacemark]
-                
-                // Place details
-                var placeMark: CLPlacemark!
-                placeMark = placeArray[0]
-                
-                // Address dictionary
-                println(placeMark.addressDictionary)
-                
-                // Location name
-                if let locationName = placeMark.addressDictionary["Name"] as? String {
-                    newLocation.locationName = locationName
-                }
-                
-                // Street address
-//                if let street = placeMark.addressDictionary["Thoroughfare"] as? NSString {
-//                    println(street)
-//                }
-                
-                // City
-                if let city = placeMark.addressDictionary["City"] as? String {
-                    newLocation.city = city
-                }
-                
-                // Country
-                if let country = placeMark.addressDictionary["Country"] as? String {
-                    newLocation.country = country
-                }
-            })
+        self.view.userInteractionEnabled = false
+        
+        var newLocation = LocationObject()
+        newLocation.delegate = self
+        newLocation.currentLocation()
+        
+    }
+    
+    func saveNewLocation(location:LocationObject) {
+        
+        var str:String! = "Sua localização é em " + location.locationName!
+        str = str + ", " + location.city! + " - "
+        str = str + location.country! + "?"
+        
+        var alertController = UIAlertController(title: "Localização", message: str, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancelar", style: .Cancel) { (action) in
+            alertController.removeFromParentViewController()
         }
         
-        else {
-            var alertView = UIAlertView(title: "Problema de localização.", message: "A opção de localização está desativada. Por favor, ative para adicionar locais para troca de livros", delegate: self, cancelButtonTitle: "Ok")
-   
-            alertView.show()
+        let confirmAction = UIAlertAction(title: "Confirmar", style: .Default) { (action) in
+            location.saveLocation()
         }
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
         
+        self.presentViewController(alertController, animated: true) {
+
+        }
+
+    }
+    
+    //MARK: LocationObject delegate
+    
+    func locationCreated(location:LocationObject) {
+        UserData.sharedInstance.locationsArray.append(location)
+    }
+    
+    func locationError(error:NSError?, auxiliar:String?) {
+        println("Error")
+        println(error)
+    }
+    
+    func locationInformationFound(location:LocationObject) {
+        saveNewLocation(location)
+    }
+    
+    func locationInformationNotFound() {
+        
+    }
+    
+    func permissionForLocationDenied() {
+        
+        var alertController = UIAlertController(title: "Problema de localização.", message: "A opção de localização está desativada. Por favor, ative para adicionar locais para troca de livros", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        self.presentViewController(alertController, animated: true) {
+            
+        }
     }
 
 }
