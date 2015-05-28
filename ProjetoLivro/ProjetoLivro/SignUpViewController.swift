@@ -21,8 +21,6 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        user = User()
-        user.createDelegate = self
         
         nameField.delegate = self
         lastNameField.delegate = self
@@ -44,7 +42,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
     
     
     @IBAction func signUp(sender: UIButton) {
-        var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, photo: imageField.image, userID: nil)
+        var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, passwordConfirmation: passwordConfirmationField.text, photo: imageField.image, userID: nil)
+        newUser.createDelegate = self
         newUser.create()
     }
     
@@ -59,6 +58,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         println(auxiliar)
     }
     
-    
+    func validationFailed(error:String) {
+        println(error)
+    }
 
 }
