@@ -9,12 +9,12 @@
 import UIKit
 import CloudKit
 
-protocol LoginDelegate {
+protocol UserLoginDelegate {
     func loginSuccessful(user:User!)
     func loginFailed(error:NSError!,auxiliar:String!)
 }
 
-protocol CreateDelegate {
+protocol UserCreateDelegate {
     func createSuccessful(user:User!)
     func createFailed(error:NSError!, auxiliar:String!)
 }
@@ -53,8 +53,8 @@ class User: NSObject {
     var container: CKContainer
     var publicData: CKDatabase
     var privateData: CKDatabase
-    var loginDelegate: LoginDelegate?
-    var registerDelegate: CreateDelegate?
+    var loginDelegate: UserLoginDelegate?
+    var createDelegate: UserCreateDelegate?
     
     // saves user in database
     func create(){
@@ -71,13 +71,13 @@ class User: NSObject {
         publicData.saveRecord(newUser, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
             //Error in recording
             dispatch_async(dispatch_get_main_queue()) {
-                self.registerDelegate?.createFailed(error,auxiliar: nil)
+                self.createDelegate?.createFailed(error,auxiliar: nil)
             }
         }
         else {
             //Registration successful
             dispatch_async(dispatch_get_main_queue()) {
-                self.registerDelegate?.createSuccessful(self)
+                self.createDelegate?.createSuccessful(self)
             }
         }
         })

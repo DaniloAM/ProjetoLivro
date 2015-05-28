@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, CloudRegisterDelegate, UITextFieldDelegate {
+class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDelegate {
 
-    var cloudAccess: CloudAccess!
+    var user: User!
     @IBOutlet weak var imageField: UIImageView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
@@ -21,8 +21,8 @@ class SignUpViewController: UIViewController, CloudRegisterDelegate, UITextField
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cloudAccess = CloudAccess()
-        cloudAccess.registerDelegate = self
+        user = User()
+        user.createDelegate = self
         
         nameField.delegate = self
         lastNameField.delegate = self
@@ -45,18 +45,16 @@ class SignUpViewController: UIViewController, CloudRegisterDelegate, UITextField
     
     @IBAction func signUp(sender: UIButton) {
         var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, photo: imageField.image, userID: nil)
-        
-        cloudAccess.registerUser(newUser)
-        
+        newUser.create()
     }
     
-    func userRegistered(user: User!) {
+    func createSuccessful(user: User!) {
         println("registered!")
         self.navigationController?.popViewControllerAnimated(true)
     }
     
     
-    func registerError(error:NSError!, auxiliar:String!) {
+    func createFailed(error:NSError!, auxiliar:String!) {
         println(error)
         println(auxiliar)
     }
