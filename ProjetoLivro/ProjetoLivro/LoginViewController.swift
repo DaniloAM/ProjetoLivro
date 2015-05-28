@@ -20,6 +20,14 @@ class LoginViewController: UIViewController, CloudLoginDelegate {
         
         cloudAccess = CloudAccess()
         cloudAccess.loginDelegate = self
+        
+        var paddingView = UIView(frame: CGRectMake (0, 0, 15, self.emailTextField.frame.height))
+        emailTextField.leftView = paddingView
+        emailTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        paddingView = UIView(frame: CGRectMake (0, 0, 15, self.passwordTextField.frame.height))
+        passwordTextField.leftView = paddingView
+        passwordTextField.leftViewMode = UITextFieldViewMode.Always
     }
 
     @IBAction func logIn() {
