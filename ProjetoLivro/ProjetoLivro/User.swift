@@ -110,8 +110,6 @@ class User: NSObject {
             }
             })
             
-        }else{
-            println("Foi!")
         }
         
     }
