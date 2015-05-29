@@ -18,4 +18,19 @@ class UserData: NSObject {
     override init() {
     
     }
+    
+    func addUserLocation(location:LocationObject) {
+        
+        
+        for var index = 0; index < self.locationsArray.count; index++ {
+            
+            let compared = self.locationsArray[index]
+            
+            if location.locationID == compared.locationID {
+                return
+            }
+        }
+        
+        self.locationsArray.append(location)
+    }
 }

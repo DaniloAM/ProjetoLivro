@@ -9,11 +9,15 @@
 import UIKit
 import CoreLocation
 
-class LocationsViewController: UIViewController, LocationCreationDelegate, CLLocationManagerDelegate {
+class LocationsViewController: UIViewController, LocationCreationDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    
+    @IBOutlet weak var tableView: UITableView!
+    let textCellIdentifier = "TextCell"
     var locationManager:CLLocationManager!
+    var newLocation:LocationObject?
     var canGiveLocation: Bool!
+ 
+    //MARK: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,15 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        if let str = UserData.sharedInstance.user?.userID {
+            var location = LocationObject()
+            location.delegate = self
+            location.getLocationsOfUserID(str)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -36,15 +49,51 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
         }
     }
     
+    
+    //MARK: TableView delegate
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return UserData.sharedInstance.locationsArray.count
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as? UITableViewCell
+        
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: textCellIdentifier)
+        }
+        
+        
+        let location = UserData.sharedInstance.locationsArray[indexPath.row]
+        
+        let str:String! = location.locationName! + " - " + location.city!
+        
+        println(str)
+        
+        cell!.textLabel?.text = str
+        
+        return cell!
+    }
+    
+    
+    //MARK: Buttons Action
+    
     @IBAction func createLocation(sender: AnyObject) {
         
-        self.view.userInteractionEnabled = false
-        
-        var newLocation = LocationObject()
-        newLocation.delegate = self
-        newLocation.currentLocation()
+        newLocation = LocationObject()
+        newLocation!.locationID = "New"
+        newLocation!.delegate = self
+        newLocation!.currentLocation()
         
     }
+    
+    //MARK: Methods
     
     func saveNewLocation(location:LocationObject) {
         
@@ -55,12 +104,19 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
         var alertController = UIAlertController(title: "Localização", message: str, preferredStyle: UIAlertControllerStyle.Alert)
         
         let cancelAction = UIAlertAction(title: "Cancelar", style: .Cancel) { (action) in
-            alertController.removeFromParentViewController()
+            alertController.dismissViewControllerAnimated(true, completion: nil)
         }
         
         let confirmAction = UIAlertAction(title: "Confirmar", style: .Default) { (action) in
+            
+            UserData.sharedInstance.addUserLocation(location)
+            self.tableView.reloadData()
+            
             location.saveLocation()
+            
+            alertController.dismissViewControllerAnimated(true, completion: nil)
         }
+        
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         
@@ -68,12 +124,19 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
 
         }
 
+        newLocation = nil
     }
     
     //MARK: LocationObject delegate
     
+    func newUserDataLocation(location:LocationObject) {
+        location.delegate = self
+        location.locationInformations()
+    }
+    
     func locationCreated(location:LocationObject) {
-        UserData.sharedInstance.locationsArray.append(location)
+        UserData.sharedInstance.addUserLocation(location)
+        tableView.reloadData()
     }
     
     func locationError(error:NSError?, auxiliar:String?) {
@@ -82,7 +145,14 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
     }
     
     func locationInformationFound(location:LocationObject) {
-        saveNewLocation(location)
+        if location.locationID == newLocation?.locationID {
+            saveNewLocation(location)
+        }
+        
+        else {
+            UserData.sharedInstance.addUserLocation(location)
+            tableView.reloadData()
+        }
     }
     
     func locationInformationNotFound() {
