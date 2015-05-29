@@ -12,8 +12,11 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //WARNING: test-only *** WARNING: test-only
+        UserData.sharedInstance.user = User(email: "as@as.con", name: "as", lastName: "bs", password: "as", photo: UIImage(named: "alphaBody.png"), userID: "2380E3E2-DB09-4367-B877-62B156B5575F")
+        //WARNING: test-only *** WARNING: test-only
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,14 +34,6 @@ class ProfileViewController: UIViewController {
     }
     @IBAction func updatePassword(sender: AnyObject) {
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

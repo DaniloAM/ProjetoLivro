@@ -25,6 +25,8 @@
 		FF0A41F41B15F7DF003C2F87 /* CloudAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */; };
 		FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0A41F51B163FCA003C2F87 /* alphaBody.png */; };
 		FF0A41F81B164F15003C2F87 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */; };
+		FF0A89061B1791C30099B8E8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A89051B1791C30099B8E8 /* UserData.swift */; };
+		FF984C0D1B166758008D2EC3 /* LocationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF984C0C1B166758008D2EC3 /* LocationObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccess.swift; sourceTree = "<group>"; };
 		FF0A41F51B163FCA003C2F87 /* alphaBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alphaBody.png; sourceTree = "<group>"; };
 		FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
+		FF0A89051B1791C30099B8E8 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		FF984C0C1B166758008D2EC3 /* LocationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				FF0A41CC1B13BA61003C2F87 /* AppDelegate.swift */,
 				FF0A41CE1B13BA61003C2F87 /* ViewController.swift */,
 				FF0A41EF1B15058C003C2F87 /* User.swift */,
+				FF0A89051B1791C30099B8E8 /* UserData.swift */,
+				FF984C0C1B166758008D2EC3 /* LocationObject.swift */,
 				FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */,
 				FF0A41D01B13BA61003C2F87 /* Main.storyboard */,
 				FF0A41D31B13BA61003C2F87 /* Images.xcassets */,
@@ -260,9 +266,11 @@
 			files = (
 				C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */,
 				C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */,
+				FF0A89061B1791C30099B8E8 /* UserData.swift in Sources */,
 				C36147951B14E3D900512A9E /* LoginViewController.swift in Sources */,
 				C361479F1B1502C100512A9E /* LocationsViewController.swift in Sources */,
 				FF0A41CF1B13BA61003C2F87 /* ViewController.swift in Sources */,
+				FF984C0D1B166758008D2EC3 /* LocationObject.swift in Sources */,
 				C33E050C1B1630EF0081CC7D /* RecoverPasswordViewController.swift in Sources */,
 				C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */,
 				FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */,
