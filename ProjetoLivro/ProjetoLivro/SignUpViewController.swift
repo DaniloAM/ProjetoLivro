@@ -40,7 +40,6 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         
     }
     
-    
     @IBAction func signUp(sender: UIButton) {
         var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, passwordConfirmation: passwordConfirmationField.text, photo: imageField.image, userID: nil)
         newUser.createDelegate = self
@@ -51,7 +50,6 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         println("registered!")
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
     
     func createFailed(error:NSError!, auxiliar:String!) {
         println(error)

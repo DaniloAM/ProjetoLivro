@@ -111,7 +111,7 @@ class CloudAccess: NSObject {
                     var record: CKRecord = records[0] as! CKRecord
                     
                     if let image: UIImage = self.takeImageFromRecord(record, key: "Photo") {
-                        newUser = User(email: record.objectForKey("Email") as! String, name: record.objectForKey("Name") as! String, lastName: record.objectForKey("LastName") as! String, password: record.objectForKey("Password") as! String, photo: image, userID: record.recordID.recordName)
+                        //newUser = User(email: record.objectForKey("Email") as! String, name: record.objectForKey("Name") as! String, lastName: record.objectForKey("LastName") as! String, password: record.objectForKey("Password") as! String, photo: image, userID: record.recordID.recordName)
                         
                         //Found user
                         dispatch_async(dispatch_get_main_queue()) {

@@ -356,13 +356,47 @@
                                     <constraint firstItem="Vc1-mY-jml" firstAttribute="top" secondItem="Xln-RE-wU5" secondAttribute="bottom" constant="24" id="wbU-A2-gEO"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfs-7o-OlZ">
+                                <rect key="frame" x="-24" y="105" width="423" height="562"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estamos procrando seus dados de acesso, por favor aguarde um instante..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-jp-CbZ">
+                                        <rect key="frame" x="86" y="237" width="250" height="88"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="chJ-jS-vnU"/>
+                                            <constraint firstAttribute="height" constant="88" id="y4a-DP-X8y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.91764706373214722" green="0.87450981140136719" blue="0.7607843279838562" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="vvA-sa-RGT">
+                                        <rect key="frame" x="201" y="209" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="QiQ-Wk-Cvf"/>
+                                            <constraint firstAttribute="height" constant="20" id="c2K-V0-OMt"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.11379963904619217" green="0.18103788793087006" blue="0.24244579672813416" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.91764706373214722" green="0.87450981140136719" blue="0.7607843279838562" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="vvA-sa-RGT" secondAttribute="centerX" id="VOP-ab-1rr"/>
+                                    <constraint firstItem="q0m-jp-CbZ" firstAttribute="top" secondItem="vvA-sa-RGT" secondAttribute="bottom" constant="8" id="bJn-J1-jw1"/>
+                                    <constraint firstAttribute="centerY" secondItem="q0m-jp-CbZ" secondAttribute="centerY" id="dNg-sX-H7h"/>
+                                    <constraint firstAttribute="centerX" secondItem="q0m-jp-CbZ" secondAttribute="centerX" id="kJn-cZ-NRh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.23921568627450981" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.36862745098039218" green="0.31764705882352939" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="cfs-7o-OlZ" secondAttribute="trailing" constant="-40" id="6ex-BI-pbn"/>
+                            <constraint firstItem="cfs-7o-OlZ" firstAttribute="top" secondItem="bUo-sK-dHa" secondAttribute="bottom" id="Ecm-sf-P5Z"/>
                             <constraint firstItem="bUo-sK-dHa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="ID8-zc-y97"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cfs-7o-OlZ" secondAttribute="bottom" id="OWU-9Z-jnF"/>
                             <constraint firstItem="bUo-sK-dHa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-40" id="SvP-hC-NC1"/>
                             <constraint firstAttribute="centerY" secondItem="uoI-ox-thN" secondAttribute="centerY" constant="-37.5" id="W1o-rf-u1C"/>
+                            <constraint firstItem="cfs-7o-OlZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-40" id="keG-0h-Xte"/>
                             <constraint firstAttribute="centerX" secondItem="uoI-ox-thN" secondAttribute="centerX" id="my4-XG-irN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bUo-sK-dHa" secondAttribute="trailing" constant="-40" id="v9F-Ye-5qM"/>
                         </constraints>
@@ -371,6 +405,8 @@
                     <connections>
                         <outlet property="emailTextField" destination="Xln-RE-wU5" id="sCK-nA-ro6"/>
                         <outlet property="passwordTextField" destination="Vc1-mY-jml" id="Ocg-kQ-3aK"/>
+                        <outlet property="waitingIndicator" destination="vvA-sa-RGT" id="53w-fY-0fh"/>
+                        <outlet property="waitingView" destination="cfs-7o-OlZ" id="9rE-ry-5s6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -841,13 +877,13 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qH1-DX-bDh">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GXX-5w-cWd">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -891,14 +927,14 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Estado do livro" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG6-oT-x7s">
                                 <rect key="frame" x="16" y="271" width="115" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNa-ks-PCm">
                                 <rect key="frame" x="16" y="338" width="343" height="87"/>
                                 <string key="text">Label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste label teste </string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="uiw-7p-fbV">
@@ -923,6 +959,6 @@
         <image name="alphaBody.png" width="422" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="33R-OI-9ey"/>
+        <segue reference="41T-hm-4EN"/>
     </inferredMetricsTieBreakers>
 </document>
