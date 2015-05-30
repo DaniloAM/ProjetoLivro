@@ -38,6 +38,8 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         newUser.autenticate()
     }
     
+    // Alert functions
+    
     func loginSuccessful(user:User!) {
         waitingView.hidden = true
         waitingIndicator.stopAnimating()
@@ -57,8 +59,8 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         
         presentViewController(refreshAlert, animated: true, completion: nil)
         
+        // TODO: REMOVE LATER
         println(error)
-        println(auxiliar)
     }
     
     // close keyboard

@@ -90,7 +90,7 @@ class User: NSObject {
             return false
         }
         
-        return false
+        return true
     }
     
     // database variables
@@ -112,6 +112,8 @@ class User: NSObject {
             newUser.setValue(self.lastName, forKey: "LastName")
             newUser.setValue(self.email, forKey: "Email")
             newUser.setValue(self.password, forKey: "Password")
+            newUser.setValue("teste?", forKey: "SecurityQuestion")
+            newUser.setValue("teste", forKey: "SecurityAnswer")
             setUserPhoto(newUser, image: self.photo, key: "Photo")
             
             publicData.saveRecord(newUser, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
