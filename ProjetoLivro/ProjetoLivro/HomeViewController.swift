@@ -10,9 +10,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var profileButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let name = defaults.stringForKey("UserName")
+        profileButton.title = name
     }
 
     override func didReceiveMemoryWarning() {

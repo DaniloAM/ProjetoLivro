@@ -38,11 +38,22 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         newUser.autenticate()
     }
     
+    // Sava user information in user default
+    
+    private func setUserDefalts(user:User!){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setObject(user.name, forKey: "UserName")
+        defaults.setObject(user.userID, forKey: "UserID")
+    }
+    
     // Alert functions
     
     func loginSuccessful(user:User!) {
         waitingView.hidden = true
         waitingIndicator.stopAnimating()
+        
+        setUserDefalts(user)
         
         // Goes to initial screen
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController

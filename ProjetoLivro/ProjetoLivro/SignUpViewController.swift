@@ -23,6 +23,12 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
     @IBOutlet weak var waitingView: UIView!
     @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var photoButton: UIButton!
+    @IBOutlet weak var securityQuestion: UITextField!
+    @IBOutlet weak var securityAnswer: UITextField!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var securityView: UIView!
+    
+    var newUser: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +38,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         emailField.delegate = self
         passwordField.delegate = self
         passwordConfirmationField.delegate = self
+        securityQuestion.delegate = self
+        securityAnswer.delegate = self
         
         self.imageField.layer.cornerRadius = self.imageField.frame.size.width / 2;
         self.imageField.clipsToBounds = true;
@@ -41,6 +49,20 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         setTextFieldPadding(emailField)
         setTextFieldPadding(passwordField)
         setTextFieldPadding(passwordConfirmationField)
+        setTextFieldPadding(securityQuestion)
+        setTextFieldPadding(securityAnswer)
+    }
+    
+    @IBAction func showSecurity(sender: UIButton) {
+        newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, passwordConfirmation: passwordConfirmationField.text, photo: imageField.image, userID: nil)
+        newUser.createDelegate = self
+        if (newUser.isValid()){
+            securityView.hidden = false
+        }
+    }
+    
+    @IBAction func back(sender: UIButton) {
+        securityView.hidden = true
     }
     
     @IBAction func signUp(sender: UIButton) {
@@ -49,8 +71,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         waitingView.hidden = false
         waitingIndicator.startAnimating()
         
-        var newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, passwordConfirmation: passwordConfirmationField.text, photo: imageField.image, userID: nil)
-        newUser.createDelegate = self
+        newUser.securityQuestion = securityQuestion.text
+        newUser.securityAnswer = securityAnswer.text
         newUser.create()
     }
     
@@ -130,6 +152,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         passwordConfirmationField.resignFirstResponder()
+        securityAnswer.resignFirstResponder()
+        securityQuestion.resignFirstResponder()
     }
     
     // Add style to textfield

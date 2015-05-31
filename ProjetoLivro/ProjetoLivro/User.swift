@@ -30,6 +30,8 @@ class User: NSObject {
     var passwordConfirmation:String!
     var photo:UIImage!
     var userID:String?
+    var securityQuestion:String!
+    var securityAnswer:String!
 
     override init() {
         container = CKContainer.defaultContainer()
@@ -93,6 +95,21 @@ class User: NSObject {
         return true
     }
     
+    func isValidSecurity() ->Bool {
+        
+        if (isEmpty(securityQuestion)){
+            self.createDelegate?.validationFailed("Erro: pergunta de segurança não pode ser nulo")
+            return false
+        }
+        
+        if (isEmpty(securityAnswer)){
+            self.createDelegate?.validationFailed("Erro: resposta de segurança não pode ser nulo")
+            return false
+        }
+        
+        return true
+    }
+    
     // database variables
     var container: CKContainer
     var publicData: CKDatabase
@@ -103,7 +120,7 @@ class User: NSObject {
     // saves user in database
     func create(){
         
-        if (self.isValid()){
+        if (self.isValidSecurity()){
         
             let newUser = CKRecord(recordType: "User")
             
@@ -112,8 +129,8 @@ class User: NSObject {
             newUser.setValue(self.lastName, forKey: "LastName")
             newUser.setValue(self.email, forKey: "Email")
             newUser.setValue(self.password, forKey: "Password")
-            newUser.setValue("teste?", forKey: "SecurityQuestion")
-            newUser.setValue("teste", forKey: "SecurityAnswer")
+            newUser.setValue(self.securityQuestion, forKey: "SecurityQuestion")
+            newUser.setValue(self.securityAnswer.lowercaseString, forKey: "SecurityAnswer")
             setUserPhoto(newUser, image: self.photo, key: "Photo")
             
             publicData.saveRecord(newUser, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
