@@ -438,6 +438,35 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDZ-SM-xzD">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="564"/>
                                         <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V01-jB-nfN">
+                                                <rect key="frame" x="124" y="14" width="125" height="125"/>
+                                                <color key="backgroundColor" red="0.91764706373214722" green="0.87450981140136719" blue="0.7607843279838562" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="125" id="HR5-dc-L7V"/>
+                                                    <constraint firstAttribute="height" constant="125" id="lMe-D1-Lul"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spm-Pt-1Rb">
+                                                <rect key="frame" x="124" y="14" width="125" height="125"/>
+                                                <color key="tintColor" red="0.22745098173618317" green="0.17647059261798859" blue="0.14117647707462311" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Adicionar foto">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="takePhoto:" destination="mwb-cV-Por" eventType="touchUpInside" id="1me-Fq-F45"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nome" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Ye-j1-XX9">
+                                                <rect key="frame" x="62" y="163" width="250" height="30"/>
+                                                <color key="backgroundColor" red="0.91764706370000004" green="0.87450981139999995" blue="0.76078432799999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.2274509817" green="0.1764705926" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Oxs-o6-Msv"/>
+                                                    <constraint firstAttribute="width" constant="250" id="mpE-Xh-aD3"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Sobrenome" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8re-Dd-Muq">
                                                 <rect key="frame" x="62" y="217" width="250" height="30"/>
                                                 <color key="backgroundColor" red="0.91764706373214722" green="0.87450981140136719" blue="0.7607843279838562" alpha="1" colorSpace="calibratedRGB"/>
@@ -445,6 +474,17 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="A3O-ma-gt4"/>
                                                     <constraint firstAttribute="width" constant="250" id="Toa-Ot-13d"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gcr-r1-pPd">
+                                                <rect key="frame" x="61" y="271" width="250" height="30"/>
+                                                <color key="backgroundColor" red="0.91764706370000004" green="0.87450981139999995" blue="0.76078432799999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="tintColor" red="0.2274509817" green="0.1764705926" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="250" id="Q2S-VT-Kae"/>
+                                                    <constraint firstAttribute="height" constant="30" id="cxr-5A-Cmk"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -471,35 +511,6 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gcr-r1-pPd">
-                                                <rect key="frame" x="61" y="271" width="250" height="30"/>
-                                                <color key="backgroundColor" red="0.91764706370000004" green="0.87450981139999995" blue="0.76078432799999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="tintColor" red="0.2274509817" green="0.1764705926" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="250" id="Q2S-VT-Kae"/>
-                                                    <constraint firstAttribute="height" constant="30" id="cxr-5A-Cmk"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                            </textField>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V01-jB-nfN">
-                                                <rect key="frame" x="124" y="14" width="125" height="125"/>
-                                                <color key="backgroundColor" red="0.91764706373214722" green="0.87450981140136719" blue="0.7607843279838562" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="125" id="HR5-dc-L7V"/>
-                                                    <constraint firstAttribute="height" constant="125" id="lMe-D1-Lul"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spm-Pt-1Rb">
-                                                <rect key="frame" x="124" y="14" width="125" height="125"/>
-                                                <color key="tintColor" red="0.22745098173618317" green="0.17647059261798859" blue="0.14117647707462311" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Adicionar foto">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="takePhoto:" destination="mwb-cV-Por" eventType="touchUpInside" id="1me-Fq-F45"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exy-kl-8me">
                                                 <rect key="frame" x="125" y="433" width="125" height="42"/>
                                                 <constraints>
@@ -529,17 +540,6 @@
                                                     <segue destination="BYZ-38-t0r" kind="show" id="33R-OI-9ey"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nome" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Ye-j1-XX9">
-                                                <rect key="frame" x="62" y="163" width="250" height="30"/>
-                                                <color key="backgroundColor" red="0.91764706370000004" green="0.87450981139999995" blue="0.76078432799999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="tintColor" red="0.2274509817" green="0.1764705926" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="Oxs-o6-Msv"/>
-                                                    <constraint firstAttribute="width" constant="250" id="mpE-Xh-aD3"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>

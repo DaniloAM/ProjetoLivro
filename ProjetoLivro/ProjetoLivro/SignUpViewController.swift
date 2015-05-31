@@ -153,7 +153,7 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         passwordField.resignFirstResponder()
         passwordConfirmationField.resignFirstResponder()
         securityAnswer.resignFirstResponder()
-        securityQuestion.resignFirstResponder()
+        securityQuestion.resignFirstResponder() 
     }
     
     // Add style to textfield

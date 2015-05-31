@@ -130,6 +130,8 @@ class User: NSObject {
             newUser.setValue(self.email, forKey: "Email")
             newUser.setValue(self.password, forKey: "Password")
             newUser.setValue(self.securityQuestion, forKey: "SecurityQuestion")
+            // trim the extra spaces off the beginning and end
+            self.securityAnswer = self.securityAnswer.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             newUser.setValue(self.securityAnswer.lowercaseString, forKey: "SecurityAnswer")
             setUserPhoto(newUser, image: self.photo, key: "Photo")
             
