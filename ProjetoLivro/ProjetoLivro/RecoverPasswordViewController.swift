@@ -8,12 +8,39 @@
 
 import UIKit
 
-class RecoverPasswordViewController: UIViewController {
+class RecoverPasswordViewController: UIViewController, UserRecoverPasswdDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var mainView: UIView!
+    
+    @IBOutlet weak var waitingView: UIView!
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var recoverContView: UIView!
+    
+    @IBOutlet weak var questionView: UIView!
+    @IBOutlet weak var securityQuestionLabel: UILabel!
+    @IBOutlet weak var securityAnswerField: UITextField!
+    
+    @IBOutlet weak var passwordView: UIView!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var passwordConfirmationField: UITextField!
+    
+    var newUser:User!
+    
+    var user: User!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailField.delegate = self
+        securityAnswerField.delegate = self
+        passwordConfirmationField.delegate = self
+        passwordField.delegate = self
 
-        // Do any additional setup after loading the view.
+        setTextFieldPadding(emailField)
+        setTextFieldPadding(securityAnswerField)
+        setTextFieldPadding(passwordField)
+        setTextFieldPadding(passwordConfirmationField)
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,19 +48,123 @@ class RecoverPasswordViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var emailField: UITextField!
-    
     @IBAction func sendRecoverPasswordInstructions(sender: AnyObject) {
+        textResign()
+        
+        mainView.hidden = true
+        waitingView.hidden = false
+        waitingIndicator.startAnimating()
+        
+        newUser = User.new()
+        newUser.email = emailField.text
+        newUser.recoverPasswdDelegate = self
+        newUser.recoverPassword()
+    }
+    
+    @IBAction func answerQuestion(sender: UIButton) {
+        var answer = securityAnswerField.text
+        if (answer.lowercaseString == self.newUser.securityAnswer){
+            questionView.hidden = true
+            passwordView.hidden = false
+        }else{
+            var refreshAlert = UIAlertController(title: "Atenção!", message: "Resposta de segurança incorreta.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                self.securityAnswerField.text = ""
+            }))
+            
+            presentViewController(refreshAlert, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func changePassword(sender: UIButton) {
+        recoverContView.hidden = true
+        waitingView.hidden = false
+        waitingIndicator.startAnimating()
+        
+        newUser.password = passwordField.text
+        newUser.passwordConfirmation = passwordConfirmationField.text
+        newUser.changePassword()
+    }
+    
+    // recover delegates
+    
+    func changeFailed(error:NSError!, auxiliar:String!){
+        var refreshAlert = UIAlertController(title: "Atenção!", message: auxiliar, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.recoverContView.hidden = false
+            self.waitingView.hidden = true
+            self.waitingIndicator.stopAnimating()
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+        
+        println(error)
+    }
+    
+    func changeSuccessful(){
+        var refreshAlert = UIAlertController(title: "Alteração de senha", message: "Sua senha foi alterada com sucesso! Agora voce ja pode se logar no app.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.waitingIndicator.stopAnimating()
+            
+            // Goes to initial screen
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+            self.showViewController(secondViewController, sender: true)
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func recoverFailed(error:NSError!, auxiliar:String!){
+        var refreshAlert = UIAlertController(title: "Atenção!", message: auxiliar, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.mainView.hidden = false
+            self.waitingView.hidden = true
+            self.waitingIndicator.stopAnimating()
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+        
+        println(error)
+    }
+    
+    func recoverSuccessful(){
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
+        
+        recoverContView.hidden = false
+        questionView.hidden = false
+        securityQuestionLabel.text = self.newUser.securityQuestion
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // close keyboard
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
+    }
+    
+    private func textResign(){
+        emailField.resignFirstResponder()
+        passwordConfirmationField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        securityAnswerField.resignFirstResponder()
+    }
+    
+    // Add style to textfield
+    
+    private func setTextFieldPadding(textfield: UITextField){
+        var paddingView = UIView(frame: CGRectMake (0, 0, 15, textfield.frame.height))
+        textfield.leftView = paddingView
+        textfield.leftViewMode = UITextFieldViewMode.Always
+    }
 
 }

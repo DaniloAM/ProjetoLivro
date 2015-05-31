@@ -38,7 +38,7 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         newUser.autenticate()
     }
     
-    // Sava user information in user default
+    // Save user information in user default
     
     private func setUserDefalts(user:User!){
         let defaults = NSUserDefaults.standardUserDefaults()
