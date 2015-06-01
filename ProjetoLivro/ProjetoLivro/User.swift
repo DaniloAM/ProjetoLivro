@@ -19,6 +19,7 @@ protocol UserCreateDelegate {
     func createSuccessful()
     func createFailed(error:NSError!, auxiliar:String!)
     func validationFailed(error:String)
+    func validationSuccessful()
 }
 
 protocol UserRecoverPasswdDelegate {
@@ -30,7 +31,6 @@ protocol UserRecoverPasswdDelegate {
 
 class User: NSObject {
     
-    // user properties
     var email:String!
     var name:String!
     var lastName:String!
@@ -82,7 +82,8 @@ class User: NSObject {
         self.password = password
     }
     
-    // database variables
+    // DATABASE VARIABLES
+    
     var container: CKContainer
     var publicData: CKDatabase
     var privateData: CKDatabase
@@ -90,11 +91,12 @@ class User: NSObject {
     var createDelegate: UserCreateDelegate?
     var recoverPasswdDelegate: UserRecoverPasswdDelegate?
     
-    // saves user in database
+    // CREATES USER
     
     func create(){
         
-        if (self.isValidSecurity()){
+        var result = hasValidSecurity()
+        if (result != ""){
         
             let newUser = CKRecord(recordType: "User")
             
@@ -111,7 +113,7 @@ class User: NSObject {
             
             publicData.saveRecord(newUser, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
                 //Error in recording
-                self.createDelegate?.createFailed(error,auxiliar: nil)
+                self.createDelegate?.createFailed(error, auxiliar: "Houve um problema ao salvar suas informações no banco de dados, por favor tente novamente")
             }
             else {
                 //Registration successful
@@ -120,38 +122,9 @@ class User: NSObject {
             })
             
         }
-    }
-    
-    private func isEmailUsed() -> Bool {
-        
-        let query = CKQuery(recordType: "User", predicate: NSPredicate(format: "Email = %@", self.email))
-        
-        var found: Bool = true
-        
-        publicData.performQuery(query, inZoneWithID: nil) { (records: [AnyObject]!, error: NSError!) -> Void in
-            if error == nil {
-                if records.count > 0 {
-                    // User found
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.createDelegate?.validationFailed("Este email já está sendo usado por outro usuário")
-                        found = true
-                    }
-                }
-                else {
-                    // No user found
-                    found = false
-                }
-            }
-            else {
-                //Some error occurred
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.createDelegate?.validationFailed(error.description)
-                    found = true
-                }
-            }
+        else {
+            self.createDelegate?.createFailed(nil ,auxiliar: result)
         }
-        
-        return found
     }
     
     private func setUserPhoto(newUser:CKRecord,image:UIImage, key:String) ->Bool {
@@ -175,7 +148,7 @@ class User: NSObject {
         return false
     }
     
-    // Recover password
+    // RECOVER PASSWORD
     
     func recoverPassword() {
         
@@ -212,7 +185,9 @@ class User: NSObject {
     }
     
     func changePassword(){
-        if (isValidPassword()){
+        
+        var result = hasValidPassword()
+        if (result != ""){
             
             let wellKnownID: CKRecordID! = CKRecordID(recordName: self.userID)
         
@@ -229,7 +204,7 @@ class User: NSObject {
                     self.publicData.saveRecord(record, completionHandler: { record, error in
                         if let saveError = error {
                             dispatch_async(dispatch_get_main_queue()) {
-                                self.recoverPasswdDelegate?.changeFailed(error, auxiliar: "Erro")
+                                self.recoverPasswdDelegate?.changeFailed(error, auxiliar: error.description)
                             }
                         } else {
                             // Saved record
@@ -241,26 +216,12 @@ class User: NSObject {
                 } 
             })
             
+        } else {
+            self.recoverPasswdDelegate?.changeFailed(nil, auxiliar: result)
         }
     }
     
-    func isValidPassword() -> Bool {
-        
-        if (isEmpty(self.password)){
-            self.recoverPasswdDelegate?.changeFailed(nil, auxiliar: "Senha não pode ser nula")
-            return false
-        }else if (isEmpty(self.passwordConfirmation)){
-            self.recoverPasswdDelegate?.changeFailed(nil, auxiliar: "Confirmação de senha não pode ser nula")
-            return false
-        }else if (self.password != self.passwordConfirmation){
-            self.recoverPasswdDelegate?.changeFailed(nil, auxiliar: "Senha e confirmação estão diferentes")
-            return false
-        }
-        
-        return true
-    }
-    
-    // login user
+    // LOGIN USER
     
     func autenticate() {
         
@@ -285,7 +246,7 @@ class User: NSObject {
                     else {
                         //Image error
                         dispatch_async(dispatch_get_main_queue()) {
-                            self.loginDelegate?.loginFailed(nil, auxiliar: "Failed to open the user image")
+                            self.loginDelegate?.loginFailed(nil, auxiliar: "Falha em abrir a imagem")
                         }
                     }
                 }
@@ -293,7 +254,7 @@ class User: NSObject {
                 else {
                     //No errors, but no user found with this email and password
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.loginDelegate?.loginFailed(error, auxiliar: "Email and/or password not found")
+                        self.loginDelegate?.loginFailed(error, auxiliar: "Email e ou senha não encontrados")
                     }
                 }
             }
@@ -301,7 +262,7 @@ class User: NSObject {
             else {
                 //Some error occurred
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.loginDelegate?.loginFailed(error, auxiliar: "Error")
+                    self.loginDelegate?.loginFailed(error, auxiliar: error.description)
                 }
             }
         }
@@ -318,6 +279,8 @@ class User: NSObject {
         return nil
     }
     
+    // USER DEFAULTS
+    
     func setUserDefalts(){
         let defaults = NSUserDefaults.standardUserDefaults()
         
@@ -325,78 +288,113 @@ class User: NSObject {
         defaults.setObject(self.userID, forKey: "UserID")
     }
     
-    // create user validations
+    // USER VALIDATIONS
     
-    func isValid() ->Bool {
+    func hasValidProperties() {
         
-        var nilValidationResult = nilValidation()
-        if (nilValidationResult != ""){
-            self.createDelegate?.validationFailed(nilValidationResult)
-            return false
+        var result = ""
+        
+        result = hasEmptyProperties()
+        if (result != ""){
+            self.createDelegate?.validationFailed(result)
         }
         
-        if (!emailValidation()){
-            self.createDelegate?.validationFailed("Erro: email incorreto")
-            return false
+        result = hasValidPassword()
+        if (result != ""){
+            self.createDelegate?.validationFailed(result)
         }
         
-        if (!passwordValidation()){
-            self.createDelegate?.validationFailed("Erro: senha e confirmação estão diferentes")
-            return false
+        result = hasValidEmail()
+        if (result != ""){
+            self.createDelegate?.validationFailed(result)
         }
         
-        //if (isEmailUsed()){
-            //return false
-        //}
-        
-        return true
+        isEmailUsed()
     }
     
-    func isValidSecurity() ->Bool {
+    private func hasValidSecurity() -> String {
         
         if (isEmpty(securityQuestion)){
-            self.createDelegate?.validationFailed("Erro: pergunta de segurança não pode ser nulo")
-            return false
+            return "Por favor, preencha a pergunta de segurança"
         }
         
         if (isEmpty(securityAnswer)){
-            self.createDelegate?.validationFailed("Erro: resposta de segurança não pode ser nulo")
-            return false
+            return "Por favor, preencha a resposta de segurança"
         }
         
-        return true
+        return ""
     }
     
-    private func nilValidation() -> String{
+    private func hasEmptyProperties() -> String{
         if isEmpty(self.name){
-            return "Erro: nome não pode ser nulo"
+            return "Por favor, preencha o nome"
         }else if isEmpty(self.lastName){
-            return "Erro: sobrenome não pode ser nulo"
+            return "Por favor, preencha o sobrenome"
         }else if isEmpty(self.email){
-            return "Erro: email não pode ser nulo"
-        }else if isEmpty(self.password){
-            return "Erro: senha não pode ser nulo"
-        }else if isEmpty(self.passwordConfirmation){
-            return "Erro: confirmação de senha não pode ser nulo"
+            return "Por favor, preencha o email"
         }else if self.photo == nil{
-            return "Erro: foto não pode ser nulo"
+            return "Por favor, escolha uma foto de perfil"
         }else{
             return ""
         }
     }
     
-    private func emailValidation() -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluateWithObject(self.email)
+    private func hasValidEmail() -> String  {
+        if (!isEmpty(self.email)){
+            let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+            if (NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluateWithObject(self.email)){
+                return ""
+            }else{
+                return "O email informado não é valido"
+            }
+        }else{
+            return "Por favor, preencha o email"
+        }
     }
     
-    private func passwordValidation() -> Bool{
-        return self.password == self.passwordConfirmation
+    func hasValidPassword() -> String {
+        
+        if (isEmpty(self.password)){
+            return "Por favor, preencha a senha"
+        }else if (isEmpty(self.passwordConfirmation)){
+            return "Por favor, preencha a confirmação de senha"
+        }else if (self.password != self.passwordConfirmation){
+            return "A senha e confirmação estão diferentes"
+        }
+        
+        return ""
     }
     
     private func isEmpty(val: String) -> Bool{
         var whitespace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
         var trimmed = val.stringByTrimmingCharactersInSet(whitespace)
         return count(trimmed) == 0
+    }
+    
+    private func isEmailUsed() {
+        let query = CKQuery(recordType: "User", predicate: NSPredicate(format: "Email = %@", self.email))
+        
+        publicData.performQuery(query, inZoneWithID: nil) { (records: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                if records.count > 0 {
+                    // User found
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.createDelegate?.validationFailed("Este email já está sendo usado por outro usuário")
+                    }
+                }
+                else {
+                    // No user fooun
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.createDelegate?.validationSuccessful()
+                    }
+                }
+            }
+            else {
+                //Some error occurred
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.createDelegate?.validationFailed(error.description)
+                }
+            }
+        }
     }
 }

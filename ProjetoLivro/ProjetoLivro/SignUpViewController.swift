@@ -25,7 +25,6 @@ class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePicke
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var securityQuestion: UITextField!
     @IBOutlet weak var securityAnswer: UITextField!
-    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var securityView: UIView!
     
     var newUser: User!
@@ -44,22 +43,42 @@ class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePicke
         self.imageField.layer.cornerRadius = self.imageField.frame.size.width / 2;
         self.imageField.clipsToBounds = true;
 
-        setTextFieldPadding([nameField, lastNameField, passwordField, passwordConfirmationField, securityQuestion, securityAnswer])
+        setTextFieldPadding([nameField, lastNameField, emailField, passwordField, passwordConfirmationField, securityQuestion, securityAnswer])
     }
     
-    @IBAction func showSecurity(sender: UIButton) {
+    // FIRST STEP validates properties
+    
+    @IBAction func setUserProperties(sender: UIButton) {
         newUser = User(email: emailField.text, name: nameField.text, lastName: lastNameField.text, password: passwordField.text, passwordConfirmation: passwordConfirmationField.text, photo: imageField.image, userID: nil)
         newUser.createDelegate = self
-        if (newUser.isValid()){
-            securityView.hidden = false
-        }
+        newUser.hasValidProperties()
+        
+        waitingView.hidden = false
+        waitingIndicator.startAnimating()
     }
+    
+    func validationSuccessful(){
+        waitingView.hidden = true
+        waitingIndicator.stopAnimating()
+        
+        securityView.hidden = false
+    }
+    
+    func validationFailed(error:String) {
+        
+        showAlert("Atenção!", message: error)
+        
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
+    }
+    
+    // SECOND STEP validates security and saves user
     
     @IBAction func back(sender: UIButton) {
         securityView.hidden = true
     }
     
-    @IBAction func signUp(sender: UIButton) {
+    @IBAction func createUser(sender: UIButton) {
         textResign()
         
         waitingView.hidden = false
@@ -67,10 +86,34 @@ class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePicke
         
         newUser.securityQuestion = securityQuestion.text
         newUser.securityAnswer = securityAnswer.text
+        
         newUser.create()
     }
     
-    // Photo functions
+    func createFailed(error:NSError!, auxiliar:String!) {
+        
+        showAlert("Atenção!", message: auxiliar)
+        
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
+        
+        // TODO: REMOVE LATER
+        println(error)
+    }
+    
+    func createSuccessful() {
+        
+        showAlert("Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no Trocalê.")
+        
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
+        
+        // Goes to initial screen
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+        self.showViewController(secondViewController, sender: true)
+    }
+    
+    // PHOTO FUNCTIONS
     
     @IBAction func takePhoto(sender: UIButton) {
         sender.setTitle("", forState: UIControlState.Normal)
@@ -87,40 +130,7 @@ class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePicke
         imageField.image = info[UIImagePickerControllerOriginalImage] as? UIImage
     }
     
-    // Delegate functions
-    
-    func createSuccessful() {
-        
-        showAlert("Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no app.")
-
-        self.waitingView.hidden = true
-        self.waitingIndicator.stopAnimating()
-        
-        // Goes to initial screen
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-        self.showViewController(secondViewController, sender: true)
-    }
-    
-    func createFailed(error:NSError!, auxiliar:String!) {
-        
-        showAlert("Atenção!", message: auxiliar)
-
-        self.waitingView.hidden = true
-        self.waitingIndicator.stopAnimating()
-        
-        // TODO: REMOVE LATER
-        println(error)
-    }
-    
-    func validationFailed(error:String) {
-        
-        showAlert("Atenção!", message: error)
-        
-        self.waitingView.hidden = true
-        self.waitingIndicator.stopAnimating()
-    }
-    
-    // text field funcs
+    // TEXT FUNCTIONS
     
     private func textResign(){
         nameField.resignFirstResponder()

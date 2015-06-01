@@ -541,7 +541,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="showSecurity:" destination="mwb-cV-Por" eventType="touchUpInside" id="TUW-0F-jZb"/>
+                                                    <action selector="setUserProperties:" destination="mwb-cV-Por" eventType="touchUpInside" id="tw0-Rk-vCi"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHh-sZ-wQe">
@@ -644,7 +644,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="signUp:" destination="mwb-cV-Por" eventType="touchUpInside" id="Vdh-eA-ulg"/>
+                                                    <action selector="createUser:" destination="mwb-cV-Por" eventType="touchUpInside" id="OQF-fg-aVw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asH-HK-aWb">
@@ -747,11 +747,9 @@
                         <outlet property="nameField" destination="8Ye-j1-XX9" id="aK1-1y-Pk8"/>
                         <outlet property="passwordConfirmationField" destination="5Th-zn-jy4" id="Rvo-m8-qHR"/>
                         <outlet property="passwordField" destination="klL-Il-i1l" id="gM8-0b-PiH"/>
-                        <outlet property="photoButton" destination="exy-kl-8me" id="ACT-bV-iRV"/>
                         <outlet property="securityAnswer" destination="nvE-DI-BGK" id="OBe-Cl-ol8"/>
                         <outlet property="securityQuestion" destination="K49-rI-wcc" id="3Z7-Rg-9vM"/>
                         <outlet property="securityView" destination="0Uj-rN-EIE" id="eyx-60-rXX"/>
-                        <outlet property="signUpButton" destination="xcy-2z-yi8" id="F1x-wF-ylO"/>
                         <outlet property="waitingIndicator" destination="IYV-M1-bjm" id="Nru-21-2xq"/>
                         <outlet property="waitingView" destination="RKa-5W-svs" id="dEr-6x-AWo"/>
                     </connections>
