@@ -21,11 +21,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+
     func showAlert(title:String!, message:String!) {
         var refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-
+            
         }))
         
         presentViewController(refreshAlert, animated: true, completion: nil)
