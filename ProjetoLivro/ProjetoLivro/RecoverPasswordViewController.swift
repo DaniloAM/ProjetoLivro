@@ -96,13 +96,10 @@ class RecoverPasswordViewController: MainViewController, UserRecoverPasswdDelega
     }
     
     func changeSuccessful(){
-        showAlert("Alteração de senha", message: "Sua senha foi alterada com sucesso! Agora voce ja pode se logar no Trocalê")
         
         self.waitingIndicator.stopAnimating()
         
-        // Goes to initial screen
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-        self.showViewController(secondViewController, sender: true)
+        showAlert("Alteração de senha", message: "Sua senha foi alterada com sucesso! Agora voce ja pode se logar no Trocalê", redirectTo: "LoginViewController")
     }
     
     func recoverFailed(error:NSError!, auxiliar:String!){

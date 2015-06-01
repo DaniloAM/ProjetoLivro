@@ -31,6 +31,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         presentViewController(refreshAlert, animated: true, completion: nil)
     }
     
+    func showAlert(title:String!, message:String!, redirectTo:String!) {
+        var refreshAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier(redirectTo) as! UIViewController
+            self.showViewController(secondViewController, sender: true)
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+    }
+    
     // text field funcs
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

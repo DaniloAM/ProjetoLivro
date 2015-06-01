@@ -96,7 +96,7 @@ class User: NSObject {
     func create(){
         
         var result = hasValidSecurity()
-        if (result != ""){
+        if (result == ""){
         
             let newUser = CKRecord(recordType: "User")
             
@@ -187,7 +187,7 @@ class User: NSObject {
     func changePassword(){
         
         var result = hasValidPassword()
-        if (result != ""){
+        if (result == ""){
             
             let wellKnownID: CKRecordID! = CKRecordID(recordName: self.userID)
         
@@ -234,27 +234,21 @@ class User: NSObject {
                 if records.count > 0 {
                     var record: CKRecord = records[0] as! CKRecord
                     
-                    if let image: UIImage = self.getUserPhoto(record, key: "Photo") {
-                        newUser = User(email: record.objectForKey("Email") as! String, name: record.objectForKey("Name") as! String, lastName: record.objectForKey("LastName") as! String, photo: image, userID: record.recordID.recordName)
-                        
-                        //Found user
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.loginDelegate?.loginSuccessful(newUser)
-                        }
+                    newUser = User.new()
+                    newUser?.name = record.objectForKey("Name") as! String
+                    newUser?.userID = record.recordID.recordName
+
+                    //Found user
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.loginDelegate?.loginSuccessful(newUser)
                     }
-                        
-                    else {
-                        //Image error
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.loginDelegate?.loginFailed(nil, auxiliar: "Falha em abrir a imagem")
-                        }
-                    }
+
                 }
                     
                 else {
                     //No errors, but no user found with this email and password
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.loginDelegate?.loginFailed(error, auxiliar: "Email e ou senha não encontrados")
+                        self.loginDelegate?.loginFailed(error, auxiliar: "Email e/ou senha não encontrados")
                     }
                 }
             }
@@ -393,6 +387,7 @@ class User: NSObject {
                 //Some error occurred
                 dispatch_async(dispatch_get_main_queue()) {
                     self.createDelegate?.validationFailed(error.description)
+                    println(error)
                 }
             }
         }

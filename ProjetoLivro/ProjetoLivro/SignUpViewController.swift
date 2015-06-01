@@ -103,14 +103,10 @@ class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePicke
     
     func createSuccessful() {
         
-        showAlert("Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no Trocalê.")
-        
         self.waitingView.hidden = true
         self.waitingIndicator.stopAnimating()
         
-        // Goes to initial screen
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-        self.showViewController(secondViewController, sender: true)
+        showAlert("Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no Trocalê.", redirectTo: "LoginViewController")
     }
     
     // PHOTO FUNCTIONS
