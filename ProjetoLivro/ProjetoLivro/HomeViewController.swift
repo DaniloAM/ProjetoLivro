@@ -21,10 +21,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let name = defaults.stringForKey("UserName")
-        profileButton.title = name
-
         numberOfFeeds = 10
         
         var barSize = 65.0
@@ -60,6 +56,30 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
         }
 
     }
-
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
+        if identifier == "showProfile" {
+            if (!checkUserLogged()){
+                return false
+            }
+        }
+        
+        // by default, transition
+        return true
+    }
+    
+    func checkUserLogged() -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let id = defaults.stringForKey("UserID")
+        
+        if (id == ""){
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+            self.showViewController(secondViewController, sender: true)
+            return false
+        }
+        else{
+            return true
+        }
+    }
 }
 

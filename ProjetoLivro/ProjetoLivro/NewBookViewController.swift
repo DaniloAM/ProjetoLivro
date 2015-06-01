@@ -8,117 +8,81 @@
 
 import UIKit
 
-class NewBookViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var imageBook: UIImageView!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+class NewBookViewController: MainViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var searchActive : Bool = false
+    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
+    var filtered:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textField.delegate = self
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
-        showBookDetails(textField.text)
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func showBookDetails(name: String) {
-        
-        var url: String
-        
-        if name.isEmpty {
-            return
-        }
-            
-        else {
-            
-            var nameConvert: String = name.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            
-            url = "https://www.googleapis.com/books/v1/volumes?q=" + nameConvert + "&langRestrict=pt"
-        }
-        
-        var couldFind: Bool = false
-        
-        
-        
-        if let linkUrl: NSURL = NSURL(string: url) {
-            
-            if let data: NSData = NSData(contentsOfURL: linkUrl) {
-                
-                if let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) {
-                    
-                    if let books: NSArray = json!.objectForKey("items") as? NSArray {
-                        
-                        if let firstResult: NSDictionary = books.objectAtIndex(0) as? NSDictionary {
-                            
-                            if let bookInfo: NSDictionary = firstResult.objectForKey("volumeInfo") as? NSDictionary {
-                                
-                                if let bookName: String = bookInfo.objectForKey("title") as? String {
-                                    
-                                    nameLabel.text = bookName
-                                }
-                                
-                                if let authorsArray: NSArray = bookInfo.objectForKey("authors") as? NSArray {
-                                    
-                                    if let author: String = authorsArray.firstObject as? String {
-                                        
-                                        authorLabel.text = author
-                                    }
-                                }
-                                
-                                if let year: String = bookInfo.objectForKey("publishedDate") as? String{
-                                    
-                                    yearLabel.text = year
-                                }
-                                
-                                if let description: String = bookInfo.objectForKey("description") as? String {
-                                    
-                                    descriptionTextView.text = description
-                                }
-                                
-                                if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {
-                                    
-                                    if let urlImage: String = imageLinks.objectForKey("smallThumbnail") as? String {
-                                        
-                                        if let imageData: NSData = NSData(contentsOfURL: NSURL(string: urlImage)!)  {
-                                            
-                                            if let image: UIImage = UIImage(data: imageData) {
-                                                
-                                                imageBook.image = image
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        
-                                    }
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-            }
-        }
-        
     }
 
-
+    // SEARCH BAR
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filtered = data.filter({ (text) -> Bool in
+            let tmp: NSString = text
+            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return range.location != NSNotFound
+        })
+        if(filtered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.tableView.reloadData()
+    }
+    
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(searchActive) {
+            return filtered.count
+        }
+        return data.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! UITableViewCell;
+        
+        if(searchActive){
+            cell.textLabel?.text = filtered[indexPath.row]
+        } else {
+            cell.textLabel?.text = data[indexPath.row];
+        }
+        
+        return cell;
+    }
 }

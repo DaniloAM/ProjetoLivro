@@ -29,6 +29,12 @@ protocol UserRecoverPasswdDelegate {
     func changeSuccessful()
 }
 
+protocol UserUpdateDelegate {
+    func updateFailed(error:String!)
+    func updateSuccessful()
+    func getInformationSuccessful()
+}
+
 class User: NSObject {
     
     var email:String!
@@ -67,15 +73,6 @@ class User: NSObject {
         self.userID = userID
     }
     
-    convenience init(email:String!, name:String!, lastName:String!, photo:UIImage!, userID:String?) {
-        self.init()
-        self.name = name
-        self.lastName = lastName
-        self.email = email
-        self.photo = photo
-        self.userID = userID
-    }
-    
     convenience init(email:String!, password:String!) {
         self.init()
         self.email = email
@@ -90,6 +87,7 @@ class User: NSObject {
     var loginDelegate: UserLoginDelegate?
     var createDelegate: UserCreateDelegate?
     var recoverPasswdDelegate: UserRecoverPasswdDelegate?
+    var updateDelegate: UserUpdateDelegate?
     
     // CREATES USER
     
@@ -146,6 +144,33 @@ class User: NSObject {
         }
         
         return false
+    }
+    
+    // UPDATE USER
+    
+    func getSelfInformation(){
+        
+        let wellKnownID: CKRecordID! = CKRecordID(recordName: self.userID)
+        
+        publicData.fetchRecordWithID(wellKnownID, completionHandler: { record, error in
+            if let fetchError = error {
+                // Some error occurred
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.updateDelegate?.updateFailed(error.description)
+                }
+            } else {
+                // set self information
+                self.name = record.objectForKey("Name") as! String
+                self.lastName = record.objectForKey("LastName") as! String
+                self.email = record.objectForKey("Email") as! String
+                self.photo = self.getUserPhoto(record, key: "Photo")
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.updateDelegate?.getInformationSuccessful()
+                }
+            }
+        })
+        
     }
     
     // RECOVER PASSWORD
