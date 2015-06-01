@@ -16,7 +16,7 @@ protocol UserLoginDelegate {
 }
 
 protocol UserCreateDelegate {
-    func createSuccessful(user:User!)
+    func createSuccessful()
     func createFailed(error:NSError!, auxiliar:String!)
     func validationFailed(error:String)
 }
@@ -115,11 +115,43 @@ class User: NSObject {
             }
             else {
                 //Registration successful
-                self.createDelegate?.createSuccessful(self)
+                self.createDelegate?.createSuccessful()
             }
             })
             
         }
+    }
+    
+    private func isEmailUsed() -> Bool {
+        
+        let query = CKQuery(recordType: "User", predicate: NSPredicate(format: "Email = %@", self.email))
+        
+        var found: Bool = true
+        
+        publicData.performQuery(query, inZoneWithID: nil) { (records: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                if records.count > 0 {
+                    // User found
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.createDelegate?.validationFailed("Este email já está sendo usado por outro usuário")
+                        found = true
+                    }
+                }
+                else {
+                    // No user found
+                    found = false
+                }
+            }
+            else {
+                //Some error occurred
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.createDelegate?.validationFailed(error.description)
+                    found = true
+                }
+            }
+        }
+        
+        return found
     }
     
     private func setUserPhoto(newUser:CKRecord,image:UIImage, key:String) ->Bool {
@@ -286,6 +318,13 @@ class User: NSObject {
         return nil
     }
     
+    func setUserDefalts(){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setObject(self.name, forKey: "UserName")
+        defaults.setObject(self.userID, forKey: "UserID")
+    }
+    
     // create user validations
     
     func isValid() ->Bool {
@@ -305,6 +344,10 @@ class User: NSObject {
             self.createDelegate?.validationFailed("Erro: senha e confirmação estão diferentes")
             return false
         }
+        
+        //if (isEmailUsed()){
+            //return false
+        //}
         
         return true
     }

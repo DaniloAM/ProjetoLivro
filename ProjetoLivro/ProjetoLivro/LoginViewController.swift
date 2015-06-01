@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDelegate {
+class LoginViewController: MainViewController, UserLoginDelegate {
 
     var user: User!
     @IBOutlet weak var emailTextField: UITextField!
@@ -23,8 +23,7 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
         
-        setTextFieldPadding(emailTextField)
-        setTextFieldPadding(passwordTextField)
+        setTextFieldPadding([emailTextField, passwordTextField])
     }
 
     @IBAction func logIn() {
@@ -38,22 +37,13 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
         newUser.autenticate()
     }
     
-    // Save user information in user default
-    
-    private func setUserDefalts(user:User!){
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        defaults.setObject(user.name, forKey: "UserName")
-        defaults.setObject(user.userID, forKey: "UserID")
-    }
-    
     // Alert functions
     
     func loginSuccessful(user:User!) {
         waitingView.hidden = true
         waitingIndicator.stopAnimating()
         
-        setUserDefalts(user)
+        user.setUserDefalts()
         
         // Goes to initial screen
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController
@@ -61,14 +51,10 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
     }
     
     func loginFailed(error:NSError!,auxiliar:String!) {
-        var refreshAlert = UIAlertController(title: "Atenção!", message: auxiliar, preferredStyle: UIAlertControllerStyle.Alert)
+        showAlert("Atenção", message: auxiliar)
         
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            self.waitingView.hidden = true
-            self.waitingIndicator.stopAnimating()
-        }))
-        
-        presentViewController(refreshAlert, animated: true, completion: nil)
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
         
         // TODO: REMOVE LATER
         println(error)
@@ -76,27 +62,9 @@ class LoginViewController: UIViewController, UserLoginDelegate, UITextFieldDeleg
     
     // close keyboard
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
-    }
-    
     private func textResign(){
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-    }
-    
-    // Add style to textfield
-    
-    private func setTextFieldPadding(textfield: UITextField){
-        var paddingView = UIView(frame: CGRectMake (0, 0, 15, textfield.frame.height))
-        textfield.leftView = paddingView
-        textfield.leftViewMode = UITextFieldViewMode.Always
     }
 
 }

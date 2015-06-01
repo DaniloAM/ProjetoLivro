@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SignUpViewController: MainViewController, UserCreateDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var user: User!
     @IBOutlet weak var imageField: UIImageView!
@@ -44,13 +44,7 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         self.imageField.layer.cornerRadius = self.imageField.frame.size.width / 2;
         self.imageField.clipsToBounds = true;
 
-        setTextFieldPadding(nameField)
-        setTextFieldPadding(lastNameField)
-        setTextFieldPadding(emailField)
-        setTextFieldPadding(passwordField)
-        setTextFieldPadding(passwordConfirmationField)
-        setTextFieldPadding(securityQuestion)
-        setTextFieldPadding(securityAnswer)
+        setTextFieldPadding([nameField, lastNameField, passwordField, passwordConfirmationField, securityQuestion, securityAnswer])
     }
     
     @IBAction func showSecurity(sender: UIButton) {
@@ -76,6 +70,8 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         newUser.create()
     }
     
+    // Photo functions
+    
     @IBAction func takePhoto(sender: UIButton) {
         sender.setTitle("", forState: UIControlState.Normal)
         
@@ -91,18 +87,14 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         imageField.image = info[UIImagePickerControllerOriginalImage] as? UIImage
     }
     
-    // Alert functions
+    // Delegate functions
     
-    func createSuccessful(user: User!) {
+    func createSuccessful() {
         
-        var refreshAlert = UIAlertController(title: "Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no app.", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            self.waitingView.hidden = true
-            self.waitingIndicator.stopAnimating()
-        }))
-        
-        presentViewController(refreshAlert, animated: true, completion: nil)
+        showAlert("Cadastro concluido!", message: "Seus dados foram salvos com sucesso! Agora voce ja pode se logar no app.")
+
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
         
         // Goes to initial screen
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
@@ -110,41 +102,25 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
     }
     
     func createFailed(error:NSError!, auxiliar:String!) {
-        var refreshAlert = UIAlertController(title: "Atenção!", message: auxiliar, preferredStyle: UIAlertControllerStyle.Alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            self.waitingView.hidden = true
-            self.waitingIndicator.stopAnimating()
-        }))
-        
-        presentViewController(refreshAlert, animated: true, completion: nil)
+        showAlert("Atenção!", message: auxiliar)
+
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
         
         // TODO: REMOVE LATER
         println(error)
     }
     
     func validationFailed(error:String) {
-        var refreshAlert = UIAlertController(title: "Atenção!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            self.waitingView.hidden = true
-            self.waitingIndicator.stopAnimating()
-        }))
+        showAlert("Atenção!", message: error)
         
-        presentViewController(refreshAlert, animated: true, completion: nil)
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
     }
     
-    // close keyboard
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
-    }
+    // text field funcs
     
     private func textResign(){
         nameField.resignFirstResponder()
@@ -155,13 +131,4 @@ class SignUpViewController: UIViewController, UserCreateDelegate, UITextFieldDel
         securityAnswer.resignFirstResponder()
         securityQuestion.resignFirstResponder() 
     }
-    
-    // Add style to textfield
-    
-    private func setTextFieldPadding(textfield: UITextField){
-        var paddingView = UIView(frame: CGRectMake (0, 0, 15, textfield.frame.height))
-        textfield.leftView = paddingView
-        textfield.leftViewMode = UITextFieldViewMode.Always
-    }
-
 }
