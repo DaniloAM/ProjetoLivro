@@ -10,12 +10,13 @@ import UIKit
 import CoreLocation
 import CloudKit
 
-protocol LocationCreationDelegate {
-    func locationCreated(location:LocationObject)
-    func locationError(error:NSError?, auxiliar:String?)
+@objc protocol LocationCreationDelegate {
+    optional func locationCreated(location:LocationObject)
+    optional func locationError(error:NSError?, auxiliar:String?)
     func locationInformationFound(location:LocationObject)
     func locationInformationNotFound()
-    func permissionForLocationDenied()
+    optional func permissionForLocationDenied()
+    optional func newUserDataLocation(location:LocationObject)
 }
 
 class LocationObject: NSObject, CLLocationManagerDelegate {
@@ -26,8 +27,9 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
     var country:String?
     var state:String?
     var city:String?
-    var locationName:String?
+    var locationName:String!
     var locationID:String?
+    var streetName: String?
     var container: CKContainer
     var publicData: CKDatabase
     var privateData: CKDatabase
@@ -42,13 +44,9 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
         //locationManager.delegate = self
     }
     
-    convenience init(location:CLLocation!,country:String?,state:String?,city:String?,locationName:String?) {
-        self.init()
+    init(location:CLLocation!) {
         self.location = location
-        self.country = country
-        self.state = state
-        self.city = city
-        self.locationName = locationName
+        locationName = ""
         
         container = CKContainer.defaultContainer()
         publicData = container.publicCloudDatabase
@@ -69,20 +67,20 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
         publicData.saveRecord(record, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
             //Error in recording
             dispatch_async(dispatch_get_main_queue()) {
-                self.delegate?.locationError(error,auxiliar: nil)
+                self.delegate?.locationError!(error,auxiliar: nil)
             }
         }
             
         else {
             //Creation successful
             dispatch_async(dispatch_get_main_queue()) {
-                self.delegate?.locationCreated(self)
+                self.delegate?.locationCreated!(self)
             }
             }
         })
     }
     
-    //Get all locations from user and add it on UserData
+    //Get all locations from user
     func getLocationsOfUserID(userID:String!) {
         
         var locations = [LocationObject]()
@@ -92,24 +90,21 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
         publicData.performQuery(query, inZoneWithID: nil) { (records:[AnyObject]!, error:NSError!) -> Void in
             if error == nil {
                 if records.count > 0 {
-                    for index in 0...records.count {
+                    for index in 0...records.count-1 {
                         
                         var record: CKRecord = records[index] as! CKRecord
                         
-                        var newLocation = LocationObject(location: record.objectForKey("Location") as! CLLocation, country: nil, state: nil, city: nil, locationName: nil)
+                        var newLocation = LocationObject(location: record.objectForKey("Location") as! CLLocation)
                         
-                        UserData.sharedInstance.locationsArray.append(newLocation)
+                        newLocation.locationID = record.recordID.recordName
                         
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.delegate?.locationCreated(self)
-                        }
+                        self.delegate?.newUserDataLocation!(newLocation)
                     }
                 }
             }
-            
             //Error case
             else {
-                self.delegate?.locationInformationNotFound()
+                self.delegate?.locationError!(error, auxiliar: nil)
             }
         }
     }
@@ -118,14 +113,13 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
     func currentLocation() {
         if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse {
             locationManager.startUpdatingLocation()
-            locationManager.location.coordinate
-            
             location = locationManager.location
             locationInformations()
+            locationManager.stopUpdatingLocation()
         }
             
         else {
-            self.delegate?.permissionForLocationDenied()
+            self.delegate?.permissionForLocationDenied!()
             locationManager.requestAlwaysAuthorization()
         }
     }
@@ -143,6 +137,10 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
                 placeMark = placeArray[0]
                 
                 // Location name
+                if let streetName = placeMark.addressDictionary["Locality"] as? String {
+                    self.streetName = streetName
+                }
+                
                 if let locationName = placeMark.addressDictionary["SubLocality"] as? String {
                     self.locationName = locationName
                 }
@@ -161,6 +159,7 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
             }
                 
             else {
+                self.delegate?.locationInformationNotFound()
                 println("fail")
             }
         })

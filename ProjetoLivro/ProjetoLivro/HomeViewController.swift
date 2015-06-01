@@ -8,9 +8,15 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIScrollViewDelegate {
+
 
     @IBOutlet weak var profileButton: UIBarButtonItem!
+
+    let cellSpacement = 2.0
+    
+    var feedScrollView:UIScrollView!
+    var numberOfFeeds: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,22 +24,42 @@ class HomeViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         let name = defaults.stringForKey("UserName")
         profileButton.title = name
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+        numberOfFeeds = 10
+        
+        var barSize = 65.0
+        var cellSize = self.view.frame.size.height / CGFloat(5.0)
+        
+        var frame = CGRect(x: 0, y: CGFloat(barSize), width: self.view.frame.size.width, height: CGFloat(self.view.frame.size.height - CGFloat(barSize)))
+        
+        feedScrollView = UIScrollView(frame: frame)
+        feedScrollView.showsVerticalScrollIndicator = false
+        feedScrollView.backgroundColor = UIColor(red: 38 / 255, green: 61 / 255, blue: 79 / 255, alpha: 1.0)
+        
+        var height = cellSpacement + Double(cellSize)
+        height *= Double(numberOfFeeds)
+        
+        feedScrollView.contentSize = CGSize(width: Double(self.view.frame.size.width), height: height)
+        
+        self.view.addSubview(feedScrollView)
+        
+        var cellFrame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height / CGFloat(5.0))
+        
+        var userTest = User(email: "", name: "Nome legal", lastName: "", password: "", photo: UIImage(named: "alphaBody.png"), userID: "")
+        
+        for var x = 0; x < numberOfFeeds; x++ {
+            var newCell = FeedCellView(frame: cellFrame)
+            
+            newCell.cellInformation(userTest, locationName: "Santo Amaro", books: ["Harry Potter", "Eragon", "Livro bom", "Livro não tão bom", "Livro para teste", "Mais teste", "Ultimo teste"])
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+            feedScrollView.addSubview(newCell)
+            
+            cellFrame.origin.y += cellFrame.size.height + CGFloat(cellSpacement)
+            
+        }
+
     }
-    */
 
 }
+
