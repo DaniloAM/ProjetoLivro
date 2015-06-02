@@ -20,9 +20,6 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     
     var delegate:FeedRequestDelegate?
     var feedArray:[FeedObject]!
-    var locationsArray:[LocationObject]!
-    //var bookListArray:[Book]!
-    var usersArray:[User]!
     var interval: Int
     var feedQuantity: Int
     var isRequesting: Bool
@@ -40,9 +37,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
         bookListFound = 0
         
         feedArray = [FeedObject]()
-        locationsArray = [LocationObject]()
-        //bookListArray = [Book]()
-        usersArray = [User]()
+
     }
     
     func receiveFeedLocations(userLocation:CLLocation) {
@@ -70,7 +65,6 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
                 
                 if(self.feedArray.count >= self.feedQuantity) {
                     self.fillUserAndBookInformations()
-                    //self.delegate?.feedInformationCompeted(feeds)
                 }
             }
             
@@ -97,14 +91,15 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
             var location = LocationObject(location: feedArray[x].userLocation)
             location.delegate = self
             location.locationInformations()
-            locationsArray.append(location)
+            feedArray[x].locationObject = location
             
             var user = User()
             user.name = ""
             user.userIdentifierDelegate = self
             user.userFromID(feedArray[x].userID)
-            usersArray.append(user)
+            feedArray[x].user = user
             
+            //****BOOK******
             //var book = Book()
             
         }
@@ -114,6 +109,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     func checkCompleteInformation() {
         if usersFound >= 10 && locationsFound >= 10 && bookListFound >= 10 {
             
+            self.delegate?.feedInformationCompeted(self.feedArray)
         }
     }
     
