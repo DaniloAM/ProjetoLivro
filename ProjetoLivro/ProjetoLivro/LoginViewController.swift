@@ -24,6 +24,9 @@ class LoginViewController: MainViewController, UserLoginDelegate {
         self.passwordTextField.delegate = self
         
         setTextFieldPadding([emailTextField, passwordTextField])
+        
+        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.translucent = false
     }
 
     @IBAction func logIn() {
@@ -44,6 +47,9 @@ class LoginViewController: MainViewController, UserLoginDelegate {
         waitingIndicator.stopAnimating()
         
         user.setUserDefalts()
+        
+        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.translucent = true
         
         // Goes to initial screen
         let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController
