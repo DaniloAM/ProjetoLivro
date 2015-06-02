@@ -50,7 +50,6 @@ class FeedCellView: UIView {
         userView.layer.shadowOpacity = 0.3;
         
         
-        
         var userImageFrame = userFrame
         userImageFrame.size.height = userFrame.size.height / 2.0
         userImageFrame.size.width = userImageFrame.size.height
@@ -67,7 +66,7 @@ class FeedCellView: UIView {
         userNameFrame.size.width = userView.frame.size.width
         userNameFrame.origin.y = userImage.frame.origin.y + userImageFrame.size.height + (self.frame.size.height * 0.05)
         userNameText = UILabel(frame:userNameFrame)
-        userNameText.font = UIFont(name: "Avenir", size: 10.0)
+        userNameText.font = UIFont(name: "Avenir-Heavy", size: 10.0)
         userNameText.textAlignment = NSTextAlignment.Center
         
         userView.addSubview(userNameText)
@@ -107,71 +106,73 @@ class FeedCellView: UIView {
             
             if feed.user?.photo != nil {
                 userImage.image = feed.user!.photo
+                userImage.layer.cornerRadius = userImage.frame.size.height / 2.0
+                userImage.layer.masksToBounds = true
             }
             
             if feed.locationObject?.locationName != nil {
                 userLocationText.text = feed.locationObject?.locationName
             }
         }
-     
-        if feed.bookArray.count > bookCount {
+
+        var frameExample = self.frame
+        frameExample.origin.x = 0.0
+        frameExample.origin.y = 0.0
+        
+        var bookHeight = Double(self.frame.size.height) * bookHeightFactor
+        var bookWidth = bookHeight * bookWidthFactor
+        var bookSpacement = bookWidth * bookSpacementFactor
+        
+        var scrollContentSize = CGSize(width: Double(bookCount) * (bookWidth + bookSpacement), height: Double(offerScrollView.frame.size.height))
+        
+        scrollContentSize.width += CGFloat(bookSpacement)
+        offerScrollView.contentSize = scrollContentSize
+        
+        var bookY = Double(self.frame.size.height / 2.0) - Double(bookHeight / 2.0)
+        
+        var bookFrame = CGRect(x: bookSpacement, y:bookY , width: bookWidth, height: bookHeight)
+        var labelFrame = bookFrame
+        labelFrame.size.height = self.frame.size.height * (self.frame.size.height * 0.001)
+        labelFrame.origin.y += bookFrame.height + (self.frame.size.height * 0.05)
+        
+        
+        for var x = 0; x < feed.bookArray.count; x++ {
             
-            let startCount = bookCount
-            bookCount = feed.bookArray.count
-            
-            var frameExample = self.frame
-            frameExample.origin.x = 0.0
-            frameExample.origin.y = 0.0
-            
-            var bookHeight = Double(self.frame.size.height) * bookHeightFactor
-            var bookWidth = bookHeight * bookWidthFactor
-            var bookSpacement = bookWidth * bookSpacementFactor
-            
-            var scrollContentSize = CGSize(width: Double(bookCount) * (bookWidth + bookSpacement), height: Double(offerScrollView.frame.size.height))
-            
-            scrollContentSize.width += CGFloat(bookSpacement)
-            offerScrollView.contentSize = scrollContentSize
-            
-            var bookY = Double(self.frame.size.height / 2.0) - Double(bookHeight / 2.0)
-            
-            var bookFrame = CGRect(x: bookSpacement, y:bookY , width: bookWidth, height: bookHeight)
-            var labelFrame = bookFrame
-            labelFrame.size.height = self.frame.size.height * (self.frame.size.height * 0.001)
-            labelFrame.origin.y += bookFrame.height + (self.frame.size.height * 0.05)
-            
-            for var x:Int = startCount; x < books.count; x++ {
+            if x >= books.count {
                 
-                let book:Book = feed.bookArray[x]
-                
-                var xPos = Double(x) * bookWidth + bookSpacement
-                
-                labelFrame.origin.x = CGFloat(xPos)
-                bookFrame.origin.x = CGFloat(xPos)
-                
-                var newBook = UIImageView(frame: bookFrame)
-                var bookName = UILabel(frame: labelFrame)
-                
-                
-                if book.coverPhoto != nil {
-                    newBook.image = book.coverPhoto
-                }
+                if feed.bookArray[x].name != nil {
+                    let book:Book = feed.bookArray[x]
                     
-                else {
-                    newBook.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+                    var xPos = bookSpacement + (Double(x) * (bookWidth + bookSpacement))
+                    
+                    labelFrame.origin.x = CGFloat(xPos)
+                    bookFrame.origin.x = CGFloat(xPos)
+                    
+                    var newBook = UIImageView(frame: bookFrame)
+                    var bookName = UILabel(frame: labelFrame)
+                    
+                    
+                    if book.coverPhoto != nil {
+                        newBook.image = book.coverPhoto
+                    }
+                        
+                    else {
+                        newBook.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+                    }
+                    
+                    if book.name != nil {
+                        bookName.text = book.name
+                    }
+                    
+                    bookName.font = UIFont(name: "Avenir-Light", size: 8.0)
+                    bookName.textAlignment = NSTextAlignment.Center
+                    
+                    offerScrollView.addSubview(bookName)
+                    offerScrollView.addSubview(newBook)
+                    
+                    books.append(newBook)
                 }
-                
-                if book.name != nil {
-                    bookName.text = book.name
-                }
-                
-                bookName.font = UIFont(name: "Avenir", size: 8.0)
-                bookName.textAlignment = NSTextAlignment.Center
-                
-                offerScrollView.addSubview(bookName)
-                offerScrollView.addSubview(newBook)
             }
         }
-        
     }
-    
 }

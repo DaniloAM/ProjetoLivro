@@ -25,10 +25,10 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
         
         reloadTimer = nil
         
-        superview.addSubview(self)
+        //superview.addSubview(self)
         
         self.frame = frame
-        self.delegate = self
+        //self.delegate = self
         feedCellQuantity = 10
         location = userLocation
         
@@ -37,8 +37,12 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
         
         feedRequest = FeedRequest(interval: 10)
         feedRequest?.delegate = self
-        feedRequest?.receiveFeedLocations(location!)
         
+        let priority = DISPATCH_QUEUE_PRIORITY_HIGH
+        
+        if location != nil {
+            feedRequest?.receiveFeedLocations(location!)
+        }
     }
     
 
@@ -67,8 +71,11 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
             println("oops")
             println(informations.count)
         }
-    
+        
         var cellFrame = CGRect(x: 0, y: 0, width: self.superview!.frame.size.width, height: self.superview!.frame.size.height / CGFloat(5.0))
+        
+        self.contentSize = CGSize(width: self.frame.size.width, height: (cellFrame.size.height + CGFloat(cellSpacement)) * CGFloat(informations.count))
+        
         
         for var cellIndex = feedCellQuantity! - 10; cellIndex < feedCellQuantity; cellIndex++ {
             
@@ -85,8 +92,8 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
         }
         
         if reloadTimer == nil {
-            reloadTimer = NSTimer(timeInterval: 3.0, target: self, selector: Selector("updateCells"), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(reloadTimer!, forMode: NSRunLoopCommonModes)
+            reloadTimer = NSTimer(timeInterval: 1.0, target: self, selector: Selector("updateCells"), userInfo: nil, repeats: true)
+            NSRunLoop.mainRunLoop().addTimer(reloadTimer!, forMode: NSRunLoopCommonModes)
         }
         
     }

@@ -12,7 +12,7 @@ import CoreLocation
 class LocationsViewController: UIViewController, LocationCreationDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    let textCellIdentifier = "TextCell"
+    let textCellIdentifier = "LocationCell"
     var locationManager:CLLocationManager!
     var newLocation:LocationObject?
     var canGiveLocation: Bool!

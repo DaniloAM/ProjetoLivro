@@ -33,6 +33,9 @@
 		FF2EEE431B1CCBD400F34ADC /* FeedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE421B1CCBD400F34ADC /* FeedObject.swift */; };
 		FF2EEE451B1CD7FF00F34ADC /* FeedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE441B1CD7FF00F34ADC /* FeedScrollView.swift */; };
 		FF2EEE471B1CDA1E00F34ADC /* FeedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE461B1CDA1E00F34ADC /* FeedRequest.swift */; };
+		FF2EEE491B1E6EC700F34ADC /* Tabtrocas_x3.png in Resources */ = {isa = PBXBuildFile; fileRef = FF2EEE481B1E6EC700F34ADC /* Tabtrocas_x3.png */; };
+		FF2EEE4B1B1E748800F34ADC /* TradeOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE4A1B1E748800F34ADC /* TradeOfferViewController.swift */; };
+		FF2EEE4D1B1E749B00F34ADC /* TradeWantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE4C1B1E749B00F34ADC /* TradeWantViewController.swift */; };
 		FF8800191B1A9CA400DA73A3 /* FeedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8800181B1A9CA400DA73A3 /* FeedCellView.swift */; };
 		FF984C0D1B166758008D2EC3 /* LocationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF984C0C1B166758008D2EC3 /* LocationObject.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +82,9 @@
 		FF2EEE421B1CCBD400F34ADC /* FeedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedObject.swift; sourceTree = "<group>"; };
 		FF2EEE441B1CD7FF00F34ADC /* FeedScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedScrollView.swift; sourceTree = "<group>"; };
 		FF2EEE461B1CDA1E00F34ADC /* FeedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRequest.swift; sourceTree = "<group>"; };
+		FF2EEE481B1E6EC700F34ADC /* Tabtrocas_x3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tabtrocas_x3.png; sourceTree = "<group>"; };
+		FF2EEE4A1B1E748800F34ADC /* TradeOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeOfferViewController.swift; sourceTree = "<group>"; };
+		FF2EEE4C1B1E749B00F34ADC /* TradeWantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeWantViewController.swift; sourceTree = "<group>"; };
 		FF8800181B1A9CA400DA73A3 /* FeedCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCellView.swift; sourceTree = "<group>"; };
 		FF984C0C1B166758008D2EC3 /* LocationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,6 +141,8 @@
 				FF0A41D31B13BA61003C2F87 /* Images.xcassets */,
 				FF0A41D51B13BA61003C2F87 /* LaunchScreen.xib */,
 				FF0A41CA1B13BA61003C2F87 /* Supporting Files */,
+				FF2EEE4A1B1E748800F34ADC /* TradeOfferViewController.swift */,
+				FF2EEE4C1B1E749B00F34ADC /* TradeWantViewController.swift */,
 				C36147941B14E3D900512A9E /* LoginViewController.swift */,
 				C36147961B14E85200512A9E /* SignUpViewController.swift */,
 				C36147981B14EFE200512A9E /* HomeViewController.swift */,
@@ -158,6 +166,7 @@
 		FF0A41CA1B13BA61003C2F87 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FF2EEE481B1E6EC700F34ADC /* Tabtrocas_x3.png */,
 				FF0A41F51B163FCA003C2F87 /* alphaBody.png */,
 				FF0A41CB1B13BA61003C2F87 /* Info.plist */,
 			);
@@ -267,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2EEE491B1E6EC700F34ADC /* Tabtrocas_x3.png in Resources */,
 				FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */,
 				FF0A41D21B13BA61003C2F87 /* Main.storyboard in Resources */,
 				FF0A41D71B13BA61003C2F87 /* LaunchScreen.xib in Resources */,
@@ -289,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C39AC3971B1D27A400A74A6A /* ApiBook.swift in Sources */,
+				FF2EEE4D1B1E749B00F34ADC /* TradeWantViewController.swift in Sources */,
 				C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */,
 				C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */,
 				FF2EEE451B1CD7FF00F34ADC /* FeedScrollView.swift in Sources */,
@@ -304,6 +315,7 @@
 				C33E050C1B1630EF0081CC7D /* RecoverPasswordViewController.swift in Sources */,
 				C39AC3991B1D296800A74A6A /* Book.swift in Sources */,
 				C36147971B14E85200512A9E /* SignUpViewController.swift in Sources */,
+				FF2EEE4B1B1E748800F34ADC /* TradeOfferViewController.swift in Sources */,
 				FF8800191B1A9CA400DA73A3 /* FeedCellView.swift in Sources */,
 				FF0A41CD1B13BA61003C2F87 /* AppDelegate.swift in Sources */,
 				FF0A41F01B15058C003C2F87 /* User.swift in Sources */,

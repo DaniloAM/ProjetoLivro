@@ -110,9 +110,15 @@ class FeedRequest: NSObject {
                     
                     var newBook = Book()
                     newBook.apiLink = record.valueForKey("APILink") as! String
+                    newBook.name = record.valueForKey("Name") as! String
                     
-                    self.bookFinder.bookInformationsFromAPIUrl(newBook, feed:feedObject)
+                    var photo = self.getBookPhoto(record, key: "CoverPhoto")
+                        
+                    if photo != nil {
+                        newBook.coverPhoto = photo
+                    }
                     
+                    feedObject.bookArray.append(newBook)
                 }
             }
             
@@ -120,6 +126,17 @@ class FeedRequest: NSObject {
                 println("book error")
             }
         }
+    }
+    
+    private func getBookPhoto(record:CKRecord, key:String) ->UIImage? {
+        
+        if let asset:CKAsset = record.objectForKey(key) as? CKAsset {
+            if let data: NSData = NSData(contentsOfURL: asset.fileURL) {
+                return UIImage(data: data)
+            }
+        }
+        
+        return nil
     }
     
     
@@ -141,54 +158,4 @@ class FeedRequest: NSObject {
         self.delegate?.feedInformationCompeted(self.feedArray)
         
     }
-    
-//    func checkCompleteInformation() {
-//        if usersFound >= interval && locationsFound >= interval && bookListFound >= interval {
-//            
-//            self.delegate?.feedInformationCompeted(self.feedArray)
-//        }
-//    }
-//    
-//    //MARK: User Identifier Delegate
-//    
-//    func userFound(user:User!) {
-//        usersFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    func userNotFound() {
-//        usersFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    func userErrorNotFound(error:NSError!) {
-//        usersFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    
-//    //MARK: Location Creation Delegate
-//    
-//    func locationInformationFound(location:LocationObject) {
-//        locationsFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    func locationInformationNotFound() {
-//        locationsFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    //MARK: Book Information Delegate 
-//    
-//    func foundBookInformation() {
-//        bookListFound++
-//        checkCompleteInformation()
-//    }
-//    
-//    func bookInformationError(error:String!) {
-//        bookListFound++
-//        println(error)
-//        checkCompleteInformation()
-//    }
 }
