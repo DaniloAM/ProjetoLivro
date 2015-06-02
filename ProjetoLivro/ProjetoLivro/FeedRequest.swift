@@ -16,7 +16,7 @@ protocol FeedRequestDelegate {
     
 }
 
-class FeedRequest: NSObject, LocationCreationDelegate {
+class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     
     var delegate:FeedRequestDelegate?
     var feedArray:[FeedObject]!
@@ -25,6 +25,7 @@ class FeedRequest: NSObject, LocationCreationDelegate {
     var isRequesting: Bool
     var locationsFound: Int
     var usersFound: Int
+    var bookListFound: Int
     
     init(interval:Int) {
         self.interval = interval
@@ -33,8 +34,10 @@ class FeedRequest: NSObject, LocationCreationDelegate {
         isRequesting = false
         locationsFound = 0
         usersFound = 0
+        bookListFound = 0
         
         feedArray = [FeedObject]()
+
     }
     
     func receiveFeedLocations(userLocation:CLLocation) {
@@ -43,9 +46,7 @@ class FeedRequest: NSObject, LocationCreationDelegate {
         feedQuantity += interval
         
         var publicData = CKContainer.defaultContainer().publicCloudDatabase
-        
-        //var feeds = [FeedObject]()
-        
+                
         var query = CKQuery(recordType: "UserLocation", predicate: NSPredicate(format: "", argumentArray:nil))
         query.sortDescriptors = [CKLocationSortDescriptor(key: "Location", relativeLocation: userLocation)]
         
@@ -64,7 +65,6 @@ class FeedRequest: NSObject, LocationCreationDelegate {
                 
                 if(self.feedArray.count >= self.feedQuantity) {
                     self.fillUserAndBookInformations()
-                    //self.delegate?.feedInformationCompeted(feeds)
                 }
             }
             
@@ -91,11 +91,41 @@ class FeedRequest: NSObject, LocationCreationDelegate {
             var location = LocationObject(location: feedArray[x].userLocation)
             location.delegate = self
             location.locationInformations()
+            feedArray[x].locationObject = location
+            
+            var user = User()
+            user.name = ""
+            user.userIdentifierDelegate = self
+            user.userFromID(feedArray[x].userID)
+            feedArray[x].user = user
+            
+            //****BOOK******
+            //var book = Book()
             
         }
         
     }
     
+    func checkCompleteInformation() {
+        if usersFound >= 10 && locationsFound >= 10 && bookListFound >= 10 {
+            
+            self.delegate?.feedInformationCompeted(self.feedArray)
+        }
+    }
+    
+    //MARK: User Identifier Delegate
+    
+    func userFound(user:User!) {
+        usersFound++
+    }
+    
+    func userNotFound() {
+        usersFound++
+    }
+    
+    func userErrorNotFound(error:NSError!) {
+        usersFound++
+    }
     
     
     //MARK: Location Creation Delegate
@@ -105,6 +135,6 @@ class FeedRequest: NSObject, LocationCreationDelegate {
     }
     
     func locationInformationNotFound() {
-        
+        locationsFound++
     }
 }

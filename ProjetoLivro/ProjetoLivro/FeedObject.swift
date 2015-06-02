@@ -11,10 +11,12 @@ import CoreLocation
 
 class FeedObject: NSObject {
 
-    var userName:String?
+    var user: User?
+    var locationObject: LocationObject?
     var userID:String?
     var userLocation:CLLocation?
     var bookArray:[String]?
+    
     
     override init() {
         

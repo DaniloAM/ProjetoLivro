@@ -10,6 +10,12 @@
 import UIKit
 import CloudKit
 
+protocol UserIdentifierDelegate {
+    func userFound(user:User!)
+    func userNotFound()
+    func userErrorNotFound(error:NSError!)
+}
+
 protocol UserLoginDelegate {
     func loginSuccessful(user:User!)
     func loginFailed(error:NSError!,auxiliar:String!)
@@ -88,6 +94,7 @@ class User: NSObject {
     var createDelegate: UserCreateDelegate?
     var recoverPasswdDelegate: UserRecoverPasswdDelegate?
     var updateDelegate: UserUpdateDelegate?
+    var userIdentifierDelegate: UserIdentifierDelegate?
     
     // CREATES USER
     
@@ -413,6 +420,39 @@ class User: NSObject {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.createDelegate?.validationFailed(error.description)
                     println(error)
+                }
+            }
+        }
+    }
+    
+    func userFromID(userID:String!) {
+        
+        let query = CKQuery(recordType: "User", predicate: NSPredicate(format: "ID = %@", userID))
+        
+        publicData.performQuery(query, inZoneWithID: nil) { (records: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                if records.count > 0 {
+                    // User found
+                    dispatch_async(dispatch_get_main_queue()) {
+                        
+                        let record = records[0] as! CKRecord
+                        
+                        var user = User(email: record.valueForKey("Email") as! String, name: record.valueForKey("Name") as! String, lastName: record.valueForKey("LastName") as! String, password: "", photo: self.getUserPhoto(record, key: "Photo"), userID: userID)
+                        
+                        self.userIdentifierDelegate?.userFound(user)
+                    }
+                }
+                else {
+                    // No user found
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.userIdentifierDelegate?.userNotFound()
+                    }
+                }
+            }
+            else {
+                //Some error occurred
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.userIdentifierDelegate?.userErrorNotFound(error)
                 }
             }
         }
