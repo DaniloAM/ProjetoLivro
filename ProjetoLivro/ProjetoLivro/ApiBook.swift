@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol BookInformationDelegate {
+    func foundBookInformation()
+    func bookInformationError(error:String!)
+}
+
 class ApiBook: NSObject {
    
+    var informationDelegate:BookInformationDelegate?
     
     func searchForBooks(search:String) -> [Book] {
         
@@ -78,11 +84,61 @@ class ApiBook: NSObject {
                     }
                 }
             }
-
+            
         }
         
         return books
     }
+    
+    func bookInformationsFromAPIUrl(book:Book, feed:FeedObject) {
+        
+        if book.apiLink == nil {
+            
+            self.informationDelegate?.bookInformationError("url is nil")
+            return
+        }
+        
+        let url = book.apiLink
+        var couldFind: Bool = false
+        
+        if let linkUrl: NSURL = NSURL(string: url) {
+            
+            if let data: NSData = NSData(contentsOfURL: linkUrl) {
+                
+                if let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) {
+                    
+                    if let bookInfo: NSDictionary = json!.objectForKey("volumeInfo") as? NSDictionary {
+                        
+                        if let bookName: String = bookInfo.objectForKey("title") as? String {
+                            book.name = bookName
+                        }
+                        
+                        if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {
+                            if let urlImage: String = imageLinks.objectForKey("smallThumbnail") as? String {
+                                if let imageData: NSData = NSData(contentsOfURL: NSURL(string: urlImage)!)  {
+                                    if let image: UIImage = UIImage(data: imageData) {
+                                        
+                                        book.coverPhoto = image
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        
+                        feed.bookArray.append(book)
+                        
+                        self.informationDelegate?.foundBookInformation()
+                        
+                        return
+                    }
+                }
+            }
+        }
+        
+        self.informationDelegate?.bookInformationError("Failed to retrieve some informations from json")
+        
+    }
+    
     
     private func isEmpty(val: String) -> Bool{
         var whitespace = NSCharacterSet.whitespaceAndNewlineCharacterSet()

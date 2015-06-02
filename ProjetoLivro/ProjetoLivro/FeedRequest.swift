@@ -16,8 +16,9 @@ protocol FeedRequestDelegate {
     
 }
 
-class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
+class FeedRequest: NSObject {
     
+    var bookFinder = ApiBook()
     var delegate:FeedRequestDelegate?
     var feedArray:[FeedObject]!
     var interval: Int
@@ -26,6 +27,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     var locationsFound: Int
     var usersFound: Int
     var bookListFound: Int
+    var fetchCount: Int
     
     init(interval:Int) {
         self.interval = interval
@@ -35,6 +37,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
         locationsFound = 0
         usersFound = 0
         bookListFound = 0
+        fetchCount = 0
         
         feedArray = [FeedObject]()
 
@@ -42,12 +45,13 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     
     func receiveFeedLocations(userLocation:CLLocation) {
         
+        fetchCount = 0
         isRequesting = true
         feedQuantity += interval
         
         var publicData = CKContainer.defaultContainer().publicCloudDatabase
                 
-        var query = CKQuery(recordType: "UserLocation", predicate: NSPredicate(format: "", argumentArray:nil))
+        var query = CKQuery(recordType: "UserLocation", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray:nil))
         query.sortDescriptors = [CKLocationSortDescriptor(key: "Location", relativeLocation: userLocation)]
         
         var queryOperation = CKQueryOperation(query: query)
@@ -56,6 +60,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
         queryOperation.recordFetchedBlock = { (record:CKRecord!) in
             
             if record != nil {
+                self.fetchCount++
                 
                 var newFeed = FeedObject()
                 newFeed.userID = record.valueForKey("UserID") as? String
@@ -63,8 +68,12 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
                 
                 self.feedArray.append(newFeed)
                 
-                if(self.feedArray.count >= self.feedQuantity) {
-                    self.fillUserAndBookInformations()
+                if(self.fetchCount == self.interval) {
+                    println("all fetchs done")
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.fillUserAndBookInformations()
+                    }
                 }
             }
             
@@ -74,6 +83,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
         queryOperation.queryCompletionBlock = { (cursor: CKQueryCursor!, error: NSError!) in
             
             if cursor != nil {
+
                 let newOperation = CKQueryOperation(cursor: cursor)
                 newOperation.recordFetchedBlock = queryOperation.recordFetchedBlock
                 newOperation.queryCompletionBlock = queryOperation.queryCompletionBlock
@@ -85,61 +95,100 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
         publicData.addOperation(queryOperation)
     }
     
+    
+    private func userBooks(userIdentifier: String!, feedObject:FeedObject) {
+        
+        var query = CKQuery(recordType: "Book", predicate: NSPredicate(format: "UserID = %@", userIdentifier))
+        
+        var publicData = CKContainer.defaultContainer().publicCloudDatabase
+        
+        publicData.performQuery(query, inZoneWithID: nil) { (records:[AnyObject]!, error:NSError!) -> Void in
+            if error == nil {
+                for var index = 0; index < records.count; index++ {
+                    
+                    var record: CKRecord = records[index] as! CKRecord
+                    
+                    var newBook = Book()
+                    newBook.apiLink = record.valueForKey("APILink") as! String
+                    
+                    self.bookFinder.bookInformationsFromAPIUrl(newBook, feed:feedObject)
+                    
+                }
+            }
+            
+            else {
+                println("book error")
+            }
+        }
+    }
+    
+    
     private func fillUserAndBookInformations() {
         
         for var x = feedQuantity - interval; x < feedQuantity; x++ {
             var location = LocationObject(location: feedArray[x].userLocation)
-            location.delegate = self
             location.locationInformations()
             feedArray[x].locationObject = location
             
             var user = User()
             user.name = ""
-            user.userIdentifierDelegate = self
             user.userFromID(feedArray[x].userID)
             feedArray[x].user = user
             
-            //****BOOK******
-            //var book = Book()
-            
+            userBooks(feedArray[x].userID, feedObject:feedArray[x])
         }
+        
+        self.delegate?.feedInformationCompeted(self.feedArray)
         
     }
     
-    func checkCompleteInformation() {
-        if usersFound >= interval && locationsFound >= interval && bookListFound >= interval {
-            
-            self.delegate?.feedInformationCompeted(self.feedArray)
-        }
-    }
-    
-    //MARK: User Identifier Delegate
-    
-    func userFound(user:User!) {
-        usersFound++
-        checkCompleteInformation()
-    }
-    
-    func userNotFound() {
-        usersFound++
-        checkCompleteInformation()
-    }
-    
-    func userErrorNotFound(error:NSError!) {
-        usersFound++
-        checkCompleteInformation()
-    }
-    
-    
-    //MARK: Location Creation Delegate
-    
-    func locationInformationFound(location:LocationObject) {
-        locationsFound++
-        checkCompleteInformation()
-    }
-    
-    func locationInformationNotFound() {
-        locationsFound++
-        checkCompleteInformation()
-    }
+//    func checkCompleteInformation() {
+//        if usersFound >= interval && locationsFound >= interval && bookListFound >= interval {
+//            
+//            self.delegate?.feedInformationCompeted(self.feedArray)
+//        }
+//    }
+//    
+//    //MARK: User Identifier Delegate
+//    
+//    func userFound(user:User!) {
+//        usersFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    func userNotFound() {
+//        usersFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    func userErrorNotFound(error:NSError!) {
+//        usersFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    
+//    //MARK: Location Creation Delegate
+//    
+//    func locationInformationFound(location:LocationObject) {
+//        locationsFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    func locationInformationNotFound() {
+//        locationsFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    //MARK: Book Information Delegate 
+//    
+//    func foundBookInformation() {
+//        bookListFound++
+//        checkCompleteInformation()
+//    }
+//    
+//    func bookInformationError(error:String!) {
+//        bookListFound++
+//        println(error)
+//        checkCompleteInformation()
+//    }
 }

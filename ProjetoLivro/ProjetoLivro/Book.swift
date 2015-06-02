@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class Book: NSObject {
    
     // database properties

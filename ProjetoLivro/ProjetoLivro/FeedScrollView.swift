@@ -14,15 +14,26 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     var feedCellQuantity: Int?
     var location: CLLocation?
     var feedRequest: FeedRequest?
+    var cellArray:[FeedCellView]!
+    var feedObjectArray:[FeedObject]!
+    var reloadTimer: NSTimer?
     let cellSpacement = 2.0
     
-    init(frame: CGRect, userLocation: CLLocation) {
+    init(frame: CGRect!, userLocation: CLLocation!, superview:UIView) {
         super.init(frame: frame)
+        
+        
+        reloadTimer = nil
+        
+        superview.addSubview(self)
         
         self.frame = frame
         self.delegate = self
         feedCellQuantity = 10
         location = userLocation
+        
+        cellArray = [FeedCellView]()
+        feedObjectArray = [FeedObject]()
         
         feedRequest = FeedRequest(interval: 10)
         feedRequest?.delegate = self
@@ -37,14 +48,14 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
 
     
     func scrollViewDidScroll(scrollView:UIScrollView) {
-        if self.contentOffset.y > (self.contentSize.height + self.frame.size.height) {
-            
-            if feedRequest?.isRequesting == false {
-                
-                feedCellQuantity = feedCellQuantity! + 10
-                feedRequest?.receiveFeedLocations(location!)
-            }
-        }
+//        if self.contentOffset.y > (self.contentSize.height + self.frame.size.height) {
+//            
+//            if feedRequest?.isRequesting == false {
+//                
+//                feedCellQuantity = feedCellQuantity! + 10
+//                feedRequest?.receiveFeedLocations(location!)
+//            }
+//        }
     }
     
     func feedInformationError() {
@@ -54,26 +65,41 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     func feedInformationCompeted(informations:[FeedObject]) {
         if informations.count != feedCellQuantity {
             println("oops")
+            println(informations.count)
         }
     
-        
-        
         var cellFrame = CGRect(x: 0, y: 0, width: self.superview!.frame.size.width, height: self.superview!.frame.size.height / CGFloat(5.0))
-        
-        var userTest = User(email: "", name: "Nome legal", lastName: "", password: "", photo: UIImage(named: "alphaBody.png"), userID: "")
         
         for var cellIndex = feedCellQuantity! - 10; cellIndex < feedCellQuantity; cellIndex++ {
             
             cellFrame.origin.y = (cellFrame.size.height + CGFloat(cellSpacement)) * CGFloat(cellIndex)
             
             var newCell = FeedCellView(frame: cellFrame)
-            
-            newCell.cellInformation(userTest, locationName: "Santo Amaro", books: ["Harry Potter", "Eragon", "Livro bom", "Livro não tão bom", "Livro para teste", "Mais teste", "Ultimo teste"])
-            
             self.addSubview(newCell)
+            
+            self.cellArray?.append(newCell)
+            self.feedObjectArray?.append(informations[cellIndex])
+            
+            newCell.cellInformation(informations[cellIndex])
             
         }
         
+        if reloadTimer == nil {
+            reloadTimer = NSTimer(timeInterval: 3.0, target: self, selector: Selector("updateCells"), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(reloadTimer!, forMode: NSRunLoopCommonModes)
+        }
+        
+    }
+    
+    func updateCells() {
+        
+        for var x = 0; x < self.cellArray?.count; x++ {
+            
+            let feed = self.feedObjectArray[x]
+            let cell = self.cellArray[x]
+            cell.cellInformation(feed)
+            
+        }
     }
     
 }

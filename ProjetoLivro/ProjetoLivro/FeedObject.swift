@@ -15,11 +15,11 @@ class FeedObject: NSObject {
     var locationObject: LocationObject?
     var userID:String?
     var userLocation:CLLocation?
-    var bookArray:[String]?
+    var bookArray:[Book]
     
     
     override init() {
-        
+        bookArray = [Book]()
     }
     
     
