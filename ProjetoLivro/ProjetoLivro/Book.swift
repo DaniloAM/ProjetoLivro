@@ -10,14 +10,17 @@ import UIKit
 
 class Book: NSObject {
    
+    // database properties
     var bookID:String!
-    var ApiLink:String!
-    var state:String!
-    var coverPhoto:UIImage!
+    var apiLink:String!
+    var stateID:String!
     var userPhoto:UIImage!
     
-    
+    // properties for screen
+    var coverPhoto:UIImage!
     var name:String!
     var author:String!
+    var publish:String!
+    var synopsis:String!
     
 }

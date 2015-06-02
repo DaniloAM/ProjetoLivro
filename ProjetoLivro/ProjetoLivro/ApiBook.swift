@@ -46,8 +46,29 @@ class ApiBook: NSObject {
                                             }
                                         }
                                         
+                                        if let year: String = bookInfo.objectForKey("publishedDate") as? String{
+                                            book.publish = year
+                                        }
+                                        
+                                        if let link: String = bookInfo.objectForKey("selfLink") as? String{
+                                            book.apiLink = link
+                                        }
+                                        
+                                        if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {
+                                            if let urlImage: String = imageLinks.objectForKey("smallThumbnail") as? String {
+                                                if let imageData: NSData = NSData(contentsOfURL: NSURL(string: urlImage)!)  {
+                                                    if let image: UIImage = UIImage(data: imageData) {
+                                                        
+                                                        book.coverPhoto = image
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        
                                     }
-                                }
+                                }// for end
                                 
                                 books.append(book)
                             }

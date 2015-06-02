@@ -83,10 +83,14 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! UITableViewCell;
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! ApiBookTableViewCell
         
-        cell.textLabel?.text = (data[indexPath.row]).name;
-        cell.detailTextLabel?.text = (data[indexPath.row]).author;
+        cell.bookTitle.text = (data[indexPath.row]).name
+        cell.bookInformation.text = (data[indexPath.row]).author
+        cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        cell.bookPublish.text = (data[indexPath.row]).publish
+        
+        println((data[indexPath.row]).apiLink)
         
         return cell;
     }

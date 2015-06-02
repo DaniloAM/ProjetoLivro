@@ -69,17 +69,26 @@ class HomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func checkUserLogged() -> Bool {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let id = defaults.stringForKey("UserID")
+        var id = ""
+        var userDefaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+        if (userDefaults.objectForKey("UserID") != nil) {
+            id = userDefaults.stringForKey("UserID")!
+        }
         
-        if (id == ""){
+        if (isEmpty(id)){
             let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-            self.showViewController(secondViewController, sender: true)
+            self.showViewController(secondViewController, sender: false)
             return false
         }
-        else{
-            return true
-        }
+        
+        return true
+    }
+    
+    private func isEmpty(val: String) -> Bool{
+        var whitespace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        var trimmed = val.stringByTrimmingCharactersInSet(whitespace)
+        return count(trimmed) == 0
     }
 }
 
