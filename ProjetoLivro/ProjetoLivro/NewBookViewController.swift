@@ -14,8 +14,10 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var tableView: UITableView!
     
     var searchActive : Bool = false
-    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
     var filtered:[String] = []
+    
+    var apiBook:ApiBook = ApiBook.new()
+    var data:[Book] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,34 +34,43 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     // SEARCH BAR
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchActive = true;
+        //searchActive = true;
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchActive = false;
+    func searchBarTextDidEndEditing(searchBar: UISearchBar, searchText: String) {
+        //searchActive = false;
+        data = apiBook.searchForBooks(searchText)
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchActive = false;
+       // searchActive = false;
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchActive = false;
+        //searchActive = false;
+        
+        data = apiBook.searchForBooks(searchBar.text)
+        self.tableView.reloadData()
+        searchBar.resignFirstResponder()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         
-        filtered = data.filter({ (text) -> Bool in
-            let tmp: NSString = text
-            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-            return range.location != NSNotFound
-        })
-        if(filtered.count == 0){
-            searchActive = false;
-        } else {
-            searchActive = true;
-        }
-        self.tableView.reloadData()
+//        filtered = data.filter({ (text) -> Bool in
+//            let tmp: NSString = text
+//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            return range.location != NSNotFound
+//        })
+//        if(filtered.count == 0){
+//            searchActive = false;
+//        } else {
+//            searchActive = true;
+//        }
+//        self.tableView.reloadData()
+        
+        //data = apiBook.searchForBooks(searchText)
+        //self.tableView.reloadData()
     }
     
     
@@ -68,20 +79,14 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searchActive) {
-            return filtered.count
-        }
         return data.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! UITableViewCell;
         
-        if(searchActive){
-            cell.textLabel?.text = filtered[indexPath.row]
-        } else {
-            cell.textLabel?.text = data[indexPath.row];
-        }
+        cell.textLabel?.text = (data[indexPath.row]).name;
+        cell.detailTextLabel?.text = (data[indexPath.row]).author;
         
         return cell;
     }
