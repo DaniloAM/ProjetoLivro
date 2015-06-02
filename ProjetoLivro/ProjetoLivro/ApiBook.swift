@@ -139,6 +139,47 @@ class ApiBook: NSObject {
         
     }
     
+    func getAllApiInformation(book:Book) -> Book {
+        
+        let url = book.apiLink
+        
+        if let linkUrl: NSURL = NSURL(string: url) {
+            if let data: NSData = NSData(contentsOfURL: linkUrl) {
+                if let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) {
+                    
+                    if let bookInfo: NSDictionary = json!.objectForKey("volumeInfo") as? NSDictionary {
+                        
+                        if let bookName: String = bookInfo.objectForKey("title") as? String {
+                            book.name = bookName
+                        }
+                        
+                        if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {
+                            if let urlImage: String = imageLinks.objectForKey("smallThumbnail") as? String {
+                                if let imageData: NSData = NSData(contentsOfURL: NSURL(string: urlImage)!)  {
+                                    if let image: UIImage = UIImage(data: imageData) {
+                                        
+                                        book.coverPhoto = image
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if let authorsArray: NSArray = bookInfo.objectForKey("authors") as? NSArray {
+                            if let author: String = authorsArray.firstObject as? String {
+                                book.author = author
+                            }
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }// if end
+        
+        return book
+    }
+    
     
     private func isEmpty(val: String) -> Bool{
         var whitespace = NSCharacterSet.whitespaceAndNewlineCharacterSet()

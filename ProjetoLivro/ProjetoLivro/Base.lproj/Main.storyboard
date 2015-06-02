@@ -1023,7 +1023,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Perfil" id="5dl-32-vgp">
-                        <barButtonItem key="rightBarButtonItem" image="IconSair_x1" id="D6d-Gg-VTH"/>
+                        <barButtonItem key="rightBarButtonItem" image="IconSair_x1" id="D6d-Gg-VTH">
+                            <connections>
+                                <action selector="logOut:" destination="Q7u-0S-dfh" id="tvK-h8-Pu1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>

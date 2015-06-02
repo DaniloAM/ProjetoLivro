@@ -30,7 +30,9 @@ class BooksViewController: UIViewController, BookSearchDelegate, UITableViewData
         id = userDefaults.stringForKey("UserID")!
         
         newBook.searchDelegate = self
-        newBook.getUserBooks(id)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.newBook.getUserBooks(id)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,10 +50,10 @@ class BooksViewController: UIViewController, BookSearchDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! ApiBookTableViewCell
         
-        cell.bookTitle.text = (data[indexPath.row]).bookID
-        cell.bookInformation.text = (data[indexPath.row]).apiLink
+        cell.bookTitle.text = (data[indexPath.row]).name
+        cell.bookInformation.text = (data[indexPath.row]).author
         cell.bookImage.image = (data[indexPath.row]).coverPhoto
-        cell.bookPublish.text = (data[indexPath.row]).stateID
+        cell.bookPublish.text = (data[indexPath.row]).publish
         
         println((data[indexPath.row]).apiLink)
         

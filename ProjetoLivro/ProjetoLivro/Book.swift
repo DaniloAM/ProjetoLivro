@@ -57,12 +57,13 @@ class Book: NSObject {
                         for record in records{
                             var bookRecord = record as! CKRecord
                             var book = Book.new()
+                            var apiBook = ApiBook.new()
                             
                             book.bookID = bookRecord.recordID.recordName
                             book.apiLink = bookRecord.valueForKey("APILink") as! String
                             book.stateID = bookRecord.valueForKey("StateID") as! String
                             
-                            // SET api image
+                            book = apiBook.getAllApiInformation(book)
                             
                             books.append(book)
                         }

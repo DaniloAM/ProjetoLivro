@@ -52,6 +52,12 @@ class ProfileViewController: MainViewController, UserUpdateDelegate, UIImagePick
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func logOut(sender: AnyObject) {
+        user.logOut()
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+        self.showViewController(secondViewController, sender: false)
+    }
+    
     private func getUserInformation(){
         let defaults = NSUserDefaults.standardUserDefaults()
         let id = defaults.stringForKey("UserID")

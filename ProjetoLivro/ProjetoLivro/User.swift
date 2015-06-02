@@ -342,6 +342,11 @@ class User: NSObject {
         }
     }
     
+    func logOut(){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject("", forKey: "UserID")
+    }
+    
     // USER VALIDATIONS
     
     func hasValidProperties() {

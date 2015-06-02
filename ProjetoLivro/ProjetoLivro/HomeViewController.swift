@@ -26,6 +26,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         numberOfFeeds = 10
         
         locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
 
     }
@@ -60,8 +61,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         
         feedScrollView.showsVerticalScrollIndicator = false
         feedScrollView.backgroundColor = UIColor(red: 38 / 255, green: 61 / 255, blue: 79 / 255, alpha: 1.0)
-        
-        
         
         
     }
