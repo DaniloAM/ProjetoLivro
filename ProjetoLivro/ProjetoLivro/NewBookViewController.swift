@@ -13,6 +13,9 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var waitingView: UIView!
+    @IBOutlet weak var waitingIndicator: UIActivityIndicatorView!
+    
     var searchActive : Bool = false
     var filtered:[String] = []
     
@@ -34,21 +37,17 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     // SEARCH BAR
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        //searchActive = true;
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar, searchText: String) {
-        //searchActive = false;
-        data = apiBook.searchForBooks(searchText)
-        self.tableView.reloadData()
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-       // searchActive = false;
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //searchActive = false;
+        
+        startWaiting()
         
         data = apiBook.searchForBooks(searchBar.text)
         self.tableView.reloadData()
@@ -56,21 +55,6 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-//        filtered = data.filter({ (text) -> Bool in
-//            let tmp: NSString = text
-//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-//            return range.location != NSNotFound
-//        })
-//        if(filtered.count == 0){
-//            searchActive = false;
-//        } else {
-//            searchActive = true;
-//        }
-//        self.tableView.reloadData()
-        
-        //data = apiBook.searchForBooks(searchText)
-        //self.tableView.reloadData()
     }
     
     
@@ -83,6 +67,7 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        stoptWaiting()
         let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! ApiBookTableViewCell
         
         cell.bookTitle.text = (data[indexPath.row]).name
@@ -93,5 +78,17 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
         println((data[indexPath.row]).apiLink)
         
         return cell;
+    }
+    
+    // WAITING
+    
+    private func startWaiting(){
+        self.waitingView.hidden = false
+        self.waitingIndicator.startAnimating()
+    }
+    
+    private func stoptWaiting(){
+        self.waitingView.hidden = true
+        self.waitingIndicator.stopAnimating()
     }
 }

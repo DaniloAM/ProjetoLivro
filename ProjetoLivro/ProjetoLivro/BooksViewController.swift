@@ -8,27 +8,61 @@
 
 import UIKit
 
-class BooksViewController: UIViewController {
+class BooksViewController: UIViewController, BookSearchDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    var searchActive : Bool = false
+    var filtered:[String] = []
+    
+    var newBook:Book = Book.new()
+    var data:[Book] = []
+    
+    var book: Book!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        var userDefaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        var id = ""
+        id = userDefaults.stringForKey("UserID")!
+        
+        newBook.searchDelegate = self
+        newBook.getUserBooks(id)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
-    */
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! ApiBookTableViewCell
+        
+        cell.bookTitle.text = (data[indexPath.row]).bookID
+        cell.bookInformation.text = (data[indexPath.row]).apiLink
+        cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        cell.bookPublish.text = (data[indexPath.row]).stateID
+        
+        println((data[indexPath.row]).apiLink)
+        
+        return cell;
+    }
+    
+    // DELEGATE FUNCTIONS
+    
+    func bookFound(books:[Book]){
+        data = books
+        self.tableView.reloadData()
+    }
 
 }
