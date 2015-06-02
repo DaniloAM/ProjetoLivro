@@ -28,7 +28,18 @@ class ProfileViewController: MainViewController, UserUpdateDelegate, UIImagePick
         super.viewDidLoad()
         
         setImageStyle()
-        startWaiting()
+        
+        // saves
+        let fileManager = NSFileManager.defaultManager()
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        
+        // gets
+        var getImagePath = paths.stringByAppendingPathComponent("UserPhoto.png")
+        if (!fileManager.fileExistsAtPath(getImagePath))
+        {
+            startWaiting()
+        }
+        getInformationSuccessful()
         getUserInformation()
         
         //WARNING: test-only *** WARNING: test-only
@@ -77,10 +88,25 @@ class ProfileViewController: MainViewController, UserUpdateDelegate, UIImagePick
     func getInformationSuccessful(){
         stoptWaiting()
         
-        imageField.image = nil
-        imageField.image = user.photo
-        nameLabel.text = (user.name + " " + user.lastName).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        emailLabel.text = user.email
+        
+        // saves
+        let fileManager = NSFileManager.defaultManager()
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        
+        // gets
+        var getImagePath = paths.stringByAppendingPathComponent("UserPhoto.png")
+        if (fileManager.fileExistsAtPath(getImagePath))
+        {
+            var image: UIImage = UIImage(contentsOfFile: getImagePath)!
+            
+            imageField.image = nil
+            imageField.image = image
+        }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        nameLabel.text = defaults.stringForKey("UserName")
+        emailLabel.text = defaults.stringForKey("UserEmail")
     }
 
     // PHOTO FUNCTIONS

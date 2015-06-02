@@ -9,6 +9,7 @@
 
 import UIKit
 import CloudKit
+import AssetsLibrary
 
 protocol UserIdentifierDelegate {
     func userFound(user:User!)
@@ -172,11 +173,17 @@ class User: NSObject {
                 self.email = record.objectForKey("Email") as! String
                 self.photo = self.getUserPhoto(record, key: "Photo")
                 
+                self.setUserDefalts()
+                
                 dispatch_async(dispatch_get_main_queue()) {
                     self.updateDelegate?.getInformationSuccessful()
                 }
             }
         })
+        
+    }
+    
+    func saveInformationOnDevice(){
         
     }
     
@@ -268,6 +275,8 @@ class User: NSObject {
                     
                     newUser = User.new()
                     newUser?.name = record.objectForKey("Name") as! String
+                    newUser?.lastName = record.objectForKey("LastName") as! String
+                    newUser?.email = record.objectForKey("Email") as! String
                     newUser?.userID = record.recordID.recordName
 
                     //Found user
@@ -310,8 +319,27 @@ class User: NSObject {
     func setUserDefalts(){
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        defaults.setObject(self.name, forKey: "UserName")
-        defaults.setObject(self.userID, forKey: "UserID")
+        if (!isEmpty(self.name)){
+            defaults.setObject(self.name + " " + self.lastName, forKey: "UserName")
+        }
+        
+        if(!isEmpty(self.userID!)){
+            defaults.setObject(self.userID, forKey: "UserID")
+        }
+        
+        if(!isEmpty(self.email)){
+            defaults.setObject(self.email, forKey: "UserEmail")
+        }
+        
+        if(self.photo != nil){
+            // saves
+            let fileManager = NSFileManager.defaultManager()
+            var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+            
+            var filePathToWrite = "\(paths)/UserPhoto.png"
+            var imageData: NSData = UIImagePNGRepresentation(self.photo)
+            fileManager.createFileAtPath(filePathToWrite, contents: imageData, attributes: nil)
+        }
     }
     
     // USER VALIDATIONS
