@@ -107,7 +107,7 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     }
     
     func checkCompleteInformation() {
-        if usersFound >= 10 && locationsFound >= 10 && bookListFound >= 10 {
+        if usersFound >= interval && locationsFound >= interval && bookListFound >= interval {
             
             self.delegate?.feedInformationCompeted(self.feedArray)
         }
@@ -117,14 +117,17 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     
     func userFound(user:User!) {
         usersFound++
+        checkCompleteInformation()
     }
     
     func userNotFound() {
         usersFound++
+        checkCompleteInformation()
     }
     
     func userErrorNotFound(error:NSError!) {
         usersFound++
+        checkCompleteInformation()
     }
     
     
@@ -132,9 +135,11 @@ class FeedRequest: NSObject, LocationCreationDelegate, UserIdentifierDelegate {
     
     func locationInformationFound(location:LocationObject) {
         locationsFound++
+        checkCompleteInformation()
     }
     
     func locationInformationNotFound() {
         locationsFound++
+        checkCompleteInformation()
     }
 }
