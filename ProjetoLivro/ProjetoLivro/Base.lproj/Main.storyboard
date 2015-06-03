@@ -296,7 +296,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uoI-ox-thN">
                                 <rect key="frame" x="63" y="229" width="250" height="285"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bruno@bruno.com" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xln-RE-wU5">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xln-RE-wU5">
                                         <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
                                         <color key="backgroundColor" red="0.91764705882352937" green="0.87450980392156863" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.22745098039215686" green="0.17647058823529413" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
@@ -306,7 +306,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bruno" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vc1-mY-jml">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Senha" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vc1-mY-jml">
                                         <rect key="frame" x="0.0" y="54" width="250" height="30"/>
                                         <color key="backgroundColor" red="0.91764705882352937" green="0.87450980392156863" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.22745098039215686" green="0.17647058823529413" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
