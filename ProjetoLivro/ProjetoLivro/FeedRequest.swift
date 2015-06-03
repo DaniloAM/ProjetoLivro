@@ -45,54 +45,96 @@ class FeedRequest: NSObject {
     
     func receiveFeedLocations(userLocation:CLLocation) {
         
+        self.feedArray.removeAll(keepCapacity: true)
+        
         fetchCount = 0
         isRequesting = true
-        feedQuantity += interval
+        feedQuantity = interval
         
         var publicData = CKContainer.defaultContainer().publicCloudDatabase
                 
         var query = CKQuery(recordType: "UserLocation", predicate: NSPredicate(format: "TRUEPREDICATE", argumentArray:nil))
         query.sortDescriptors = [CKLocationSortDescriptor(key: "Location", relativeLocation: userLocation)]
         
-        var queryOperation = CKQueryOperation(query: query)
-        queryOperation.resultsLimit = feedQuantity
-        
-        queryOperation.recordFetchedBlock = { (record:CKRecord!) in
-            
-            if record != nil {
-                self.fetchCount++
-                
-                var newFeed = FeedObject()
-                newFeed.userID = record.valueForKey("UserID") as? String
-                newFeed.userLocation = record.valueForKey("Location") as? CLLocation
-                
-                self.feedArray.append(newFeed)
-                
-                if(self.fetchCount == self.interval) {
-                    println("all fetchs done")
+        publicData.performQuery(query, inZoneWithID: nil)  { (records:[AnyObject]!, error:NSError!) -> Void in
+            if error == nil {
+                for var index = 0; index < records.count && index < self.feedQuantity; index++ {
                     
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.fillUserAndBookInformations()
-                    }
+                    let record = records[index] as! CKRecord
+                    
+                    var newFeed = FeedObject()
+                    newFeed.userID = record.valueForKey("UserID") as? String
+                    newFeed.userLocation = record.valueForKey("Location") as? CLLocation
+                    
+                    self.feedArray.append(newFeed)
                 }
-            }
-            
-            
-        }
-        
-        queryOperation.queryCompletionBlock = { (cursor: CKQueryCursor!, error: NSError!) in
-            
-            if cursor != nil {
-
-                let newOperation = CKQueryOperation(cursor: cursor)
-                newOperation.recordFetchedBlock = queryOperation.recordFetchedBlock
-                newOperation.queryCompletionBlock = queryOperation.queryCompletionBlock
-                newOperation.resultsLimit = self.feedQuantity
-                publicData.addOperation(newOperation)
+                
+                self.feedQuantity = self.feedArray.count
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.fillUserAndBookInformations()
+                }
+                
             }
         }
         
-        publicData.addOperation(queryOperation)
+        
+        
+//        var queryOperation = CKQueryOperation(query: query)
+//        queryOperation.resultsLimit = feedQuantity
+//        
+//        queryOperation.recordFetchedBlock = { (record:CKRecord!) in
+//            
+//            if record != nil {
+//                self.fetchCount++
+//                
+//                var newFeed = FeedObject()
+//                newFeed.userID = record.valueForKey("UserID") as? String
+//                newFeed.userLocation = record.valueForKey("Location") as? CLLocation
+//                
+//                self.feedArray.append(newFeed)
+//                
+//                if(self.fetchCount == self.interval) {
+//                    println("all fetchs done")
+//                    
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.fillUserAndBookInformations()
+//                    }
+//                }
+//
+//            }
+//            
+//            else if self.fetchCount < self.interval && self.fetchCount > 0 {
+//                println("limit of fetchs")
+//                
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    self.fillUserAndBookInformations()
+//                }
+//            }
+//            
+//            
+//        }
+//        
+//        queryOperation.queryCompletionBlock = { (cursor: CKQueryCursor!, error: NSError!) in
+//            
+//            if cursor != nil {
+//                
+//                println("cursor")
+//                
+//                let newOperation = CKQueryOperation(cursor: cursor)
+//                newOperation.recordFetchedBlock = queryOperation.recordFetchedBlock
+//                newOperation.queryCompletionBlock = queryOperation.queryCompletionBlock
+//                newOperation.resultsLimit = 2
+//                publicData.addOperation(newOperation)
+//            }
+//            
+//            else {
+//                println("cursor nil")
+//                println(error)
+//            }
+//        }
+//        
+//        publicData.addOperation(queryOperation)
     }
     
     
@@ -142,7 +184,13 @@ class FeedRequest: NSObject {
     
     private func fillUserAndBookInformations() {
         
-        for var x = feedQuantity - interval; x < feedQuantity; x++ {
+        var x = feedQuantity - interval
+        
+        if x < 0{
+            x = 0
+        }
+        
+        for ; x < feedArray.count; x++ {
             var location = LocationObject(location: feedArray[x].userLocation)
             location.locationInformations()
             feedArray[x].locationObject = location

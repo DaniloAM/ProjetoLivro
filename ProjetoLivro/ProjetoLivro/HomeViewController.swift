@@ -21,6 +21,31 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
     var numberOfFeeds: Int!
     
     override func viewWillAppear(animated: Bool) {
+        
+        var status = CLLocationManager.authorizationStatus()
+        
+        if(status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+            locationManager.startUpdatingLocation()
+            feedScrollView.requestOffers(locationManager.location)
+            locationManager.stopUpdatingLocation()
+        }
+            
+        else {
+            var alertController = UIAlertController(title: "Problema de localização.", message: "A opção de localização está desativada. Por favor, ative para adicionar locais para troca de livros", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
+                alertController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            alertController.addAction(cancelAction)
+            
+            self.presentViewController(alertController, animated: true) {
+                
+            }
+            
+        }
+        
+        
         super.viewWillAppear(animated)
     }
     
@@ -32,7 +57,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         locationManager = CLLocationManager()
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        
+        createFeedScrollView()
 
     }
     
@@ -40,17 +66,25 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         
         if(status == CLAuthorizationStatus.AuthorizedWhenInUse) {
             locationManager.startUpdatingLocation()
-            createFeedScrollView()
+            feedScrollView.requestOffers(locationManager.location)
+            locationManager.stopUpdatingLocation()
         }
-        
+            
         else {
             var alertController = UIAlertController(title: "Problema de localização.", message: "A opção de localização está desativada. Por favor, ative para adicionar locais para troca de livros", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
+                alertController.dismissViewControllerAnimated(true, completion: nil)
+            }
+           
+            alertController.addAction(cancelAction)
             
             self.presentViewController(alertController, animated: true) {
                 
             }
             
         }
+        
     }
     
     
@@ -61,9 +95,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         
         var frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: CGFloat(self.view.frame.size.height - CGFloat(barSize)))
         
-        feedScrollView = FeedScrollView(frame: frame, userLocation: locationManager.location, superview: self.view)
+        feedScrollView = FeedScrollView(frame: frame, superview: self.view)
         self.view.addSubview(feedScrollView)
-        locationManager.stopUpdatingLocation()
         
         feedScrollView.showsVerticalScrollIndicator = false
         feedScrollView.backgroundColor = UIColor(red: 38 / 255, green: 61 / 255, blue: 79 / 255, alpha: 1.0)

@@ -19,18 +19,15 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     var reloadTimer: NSTimer?
     let cellSpacement = 2.0
     
-    init(frame: CGRect!, userLocation: CLLocation!, superview:UIView) {
+    init(frame: CGRect!, superview:UIView) {
         super.init(frame: frame)
         
         
         reloadTimer = nil
         
-        //superview.addSubview(self)
-        
         self.frame = frame
         //self.delegate = self
         feedCellQuantity = 10
-        location = userLocation
         
         cellArray = [FeedCellView]()
         feedObjectArray = [FeedObject]()
@@ -38,11 +35,6 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
         feedRequest = FeedRequest(interval: 10)
         feedRequest?.delegate = self
         
-        let priority = DISPATCH_QUEUE_PRIORITY_HIGH
-        
-        if location != nil {
-            feedRequest?.receiveFeedLocations(location!)
-        }
     }
     
 
@@ -51,15 +43,31 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     }
 
     
+    func requestOffers(userLocation: CLLocation!)->Bool {
+        
+        if feedRequest?.isRequesting == true {
+            return true
+        }
+        
+        self.cellArray.removeAll(keepCapacity: true)
+        self.feedObjectArray.removeAll(keepCapacity: true)
+        
+        self.subviews.map({ $0.removeFromSuperview() })
+        
+        location = userLocation
+        
+        if location != nil {
+            feedRequest?.receiveFeedLocations(location!)
+            return true
+        }
+        
+        else {
+            return false
+        }
+    }
+    
     func scrollViewDidScroll(scrollView:UIScrollView) {
-//        if self.contentOffset.y > (self.contentSize.height + self.frame.size.height) {
-//            
-//            if feedRequest?.isRequesting == false {
-//                
-//                feedCellQuantity = feedCellQuantity! + 10
-//                feedRequest?.receiveFeedLocations(location!)
-//            }
-//        }
+
     }
     
     func feedInformationError() {
@@ -67,22 +75,26 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     }
     
     func feedInformationCompeted(informations:[FeedObject]) {
-        if informations.count != feedCellQuantity {
-            println("oops")
-            println(informations.count)
-        }
         
         var cellFrame = CGRect(x: 0, y: 0, width: self.superview!.frame.size.width, height: self.superview!.frame.size.height / CGFloat(5.0))
         
         self.contentSize = CGSize(width: self.frame.size.width, height: (cellFrame.size.height + CGFloat(cellSpacement)) * CGFloat(informations.count))
         
-        
-        for var cellIndex = feedCellQuantity! - 10; cellIndex < feedCellQuantity; cellIndex++ {
+        for var cellIndex = 0; cellIndex < informations.count; cellIndex++ {
+            
             
             cellFrame.origin.y = (cellFrame.size.height + CGFloat(cellSpacement)) * CGFloat(cellIndex)
             
             var newCell = FeedCellView(frame: cellFrame)
+            var buttonUser = UIButton(frame: cellFrame)
+            
+            buttonUser.addTarget(self, action: Selector("showUserContact:"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            buttonUser.tag = cellIndex
+            buttonUser.backgroundColor = UIColor.clearColor()
+            buttonUser.titleLabel?.text = ""
             self.addSubview(newCell)
+            self.addSubview(buttonUser)
             
             self.cellArray?.append(newCell)
             self.feedObjectArray?.append(informations[cellIndex])
@@ -95,6 +107,30 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
             reloadTimer = NSTimer(timeInterval: 1.0, target: self, selector: Selector("updateCells"), userInfo: nil, repeats: true)
             NSRunLoop.mainRunLoop().addTimer(reloadTimer!, forMode: NSRunLoopCommonModes)
         }
+        
+        feedRequest?.isRequesting = false
+        
+    }
+    
+    func showUserContact(sender: UIButton) {
+        
+//        var email = feedObjectArray[sender.tag].user?.email
+//        var name = feedObjectArray[sender.tag].user?.name
+//        
+//        var str:String = "Contato com " + name! + ": " + email!
+//        
+//        var
+//        
+//        var alertController = UIAlertController(title: "Contato.", message: str, preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
+//            alertController.dismissViewControllerAnimated(true, completion: nil)
+//        }
+//        
+//        alertController.addAction(cancelAction)
+//        
+//        self.superview?.addSubview(alertController)
+        
         
     }
     
