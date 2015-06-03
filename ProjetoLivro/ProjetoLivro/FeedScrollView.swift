@@ -115,6 +115,17 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     func showUserContact(sender: UIButton) {
         
         println(sender.tag)
+    
+        if cellArray[sender.tag].showingContact == true {
+            cellArray[sender.tag].showingContact = false
+            cellArray[sender.tag].contactView?.removeFromSuperview()
+            
+            return
+        }
+        
+        if feedObjectArray[sender.tag].user?.email == nil {
+            return
+        }
         
         var email = feedObjectArray[sender.tag].user?.email
         var name = feedObjectArray[sender.tag].user?.name
@@ -127,19 +138,22 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
         var labelUser = UILabel(frame: view.frame)
         var button = UIButton(frame: view.frame)
         
-        button.addTarget(view, action: "removeContactView:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(self, action: "removeContactView:", forControlEvents: UIControlEvents.TouchUpInside)
         
         view.frame.origin.y = 0
         labelUser.frame.origin.y = 0
         button.frame.origin.y = 0
         labelUser.text = str
         labelUser.textColor = UIColor.whiteColor()
+        labelUser.textAlignment = NSTextAlignment.Center
         labelUser.font = UIFont(name: "Avenir", size: 15.0)
         labelUser.backgroundColor = UIColor.clearColor()
         
         view.addSubview(labelUser)
         view.addSubview(button)
+        cellArray[sender.tag].contactView = view
         cellArray[sender.tag].addSubview(view)
+        cellArray[sender.tag].showingContact = true
         
     }
     

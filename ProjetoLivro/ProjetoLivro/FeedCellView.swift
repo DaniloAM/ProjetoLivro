@@ -30,11 +30,14 @@ class FeedCellView: UIView {
     var books = [UIImageView]()
     
     var bookCount: Int!
+    var showingContact: Bool!
+    var contactView:UIView?
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        showingContact = false
         bookCount = 0
         
         var frameExample = self.frame
