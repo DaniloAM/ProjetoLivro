@@ -26,7 +26,7 @@ class LoginViewController: MainViewController, UserLoginDelegate {
         setTextFieldPadding([emailTextField, passwordTextField])
         
         self.navigationController?.navigationBar.hidden = true
-        self.navigationController?.navigationBar.translucent = false
+        //self.navigationController?.navigationBar.translucent = false
     }
     
     @IBAction func logIn() {
@@ -49,11 +49,12 @@ class LoginViewController: MainViewController, UserLoginDelegate {
         user.setUserDefalts()
         
         self.navigationController?.navigationBar.hidden = false
-        self.navigationController?.navigationBar.translucent = true
+        //self.navigationController?.navigationBar.translucent = true
         
         // Goes to initial screen
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController
-        self.showViewController(secondViewController, sender: true)
+        //let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as! UIViewController
+        self.navigationController?.popToRootViewControllerAnimated(true)
+            //showViewController(secondViewController, sender: true)
     }
     
     func loginFailed(error:NSError!,auxiliar:String!) {

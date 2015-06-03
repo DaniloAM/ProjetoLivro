@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjetoLivro/ProfileViewController.swift"
-            timestampString = "454980658.526029"
+            timestampString = "455060555.703548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "updateName(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjetoLivro/ProfileViewController.swift"
-            timestampString = "454980658.526029"
+            timestampString = "455060555.703548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "updateEmail(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,92 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProjetoLivro/ProfileViewController.swift"
-            timestampString = "454980658.526029"
+            timestampString = "455060555.703548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "updatePassword(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetoLivro/CreateBookViewController.swift"
-            timestampString = "455030221.106344"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "validateFailed(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ProjetoLivro.CreateBookViewController.validateFailed (ProjetoLivro.CreateBookViewController)(Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
-                  moduleName = "ProjetoLivro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brunopereira/Documents/Projetos%20iOS/ProjetoLivro/ProjetoLivro/ProjetoLivro/CreateBookViewController.swift"
-                  timestampString = "455047289.242753"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "protocol witness for ProjetoLivro.BookCreateDelegate.validateFailed &lt;A : ProjetoLivro.BookCreateDelegate&gt;(ProjetoLivro.BookCreateDelegate.Self)(Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; () in conformance ProjetoLivro.CreateBookViewController : ProjetoLivro.BookCreateDelegate in ProjetoLivro"
-                  moduleName = "ProjetoLivro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/brunopereira/Documents/Projetos%20iOS/ProjetoLivro/ProjetoLivro/ProjetoLivro/CreateBookViewController.swift"
-                  timestampString = "455047289.242865"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "0">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetoLivro/CreateBookViewController.swift"
-            timestampString = "455031774.992005"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "createBook(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProjetoLivro/Book.swift"
-            timestampString = "455042081.551341"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "create()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

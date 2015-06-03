@@ -79,8 +79,6 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
         }
         cell.bookPublish.text = (data[indexPath.row]).publish
         
-        println((data[indexPath.row]).apiLink)
-        
         return cell;
     }
     

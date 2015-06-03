@@ -16,6 +16,7 @@
 		C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479A1B14FC8900512A9E /* ProfileViewController.swift */; };
 		C361479D1B1502A300512A9E /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479C1B1502A300512A9E /* BooksViewController.swift */; };
 		C361479F1B1502C100512A9E /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361479E1B1502C100512A9E /* LocationsViewController.swift */; };
+		C36537941B1F9F100058BAA8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36537931B1F9F100058BAA8 /* UserData.swift */; };
 		C39AC3931B1CF04700A74A6A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39AC3921B1CF04700A74A6A /* MainViewController.swift */; };
 		C39AC3971B1D27A400A74A6A /* ApiBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39AC3961B1D27A400A74A6A /* ApiBook.swift */; };
 		C39AC3991B1D296800A74A6A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39AC3981B1D296800A74A6A /* Book.swift */; };
@@ -30,7 +31,6 @@
 		FF0A41F41B15F7DF003C2F87 /* CloudAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */; };
 		FF0A41F61B163FCA003C2F87 /* alphaBody.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0A41F51B163FCA003C2F87 /* alphaBody.png */; };
 		FF0A41F81B164F15003C2F87 /* NewBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */; };
-		FF0A89061B1791C30099B8E8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A89051B1791C30099B8E8 /* UserData.swift */; };
 		FF2EEE431B1CCBD400F34ADC /* FeedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE421B1CCBD400F34ADC /* FeedObject.swift */; };
 		FF2EEE451B1CD7FF00F34ADC /* FeedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE441B1CD7FF00F34ADC /* FeedScrollView.swift */; };
 		FF2EEE471B1CDA1E00F34ADC /* FeedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EEE461B1CDA1E00F34ADC /* FeedRequest.swift */; };
@@ -61,6 +61,9 @@
 		C361479A1B14FC8900512A9E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C361479C1B1502A300512A9E /* BooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		C361479E1B1502C100512A9E /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		C36537931B1F9F100058BAA8 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		C36537951B1F9FF60058BAA8 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Main.strings; sourceTree = "<group>"; };
+		C36537961B1F9FF60058BAA8 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C39AC3921B1CF04700A74A6A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C39AC3961B1D27A400A74A6A /* ApiBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiBook.swift; sourceTree = "<group>"; };
 		C39AC3981B1D296800A74A6A /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -80,7 +83,6 @@
 		FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccess.swift; sourceTree = "<group>"; };
 		FF0A41F51B163FCA003C2F87 /* alphaBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alphaBody.png; sourceTree = "<group>"; };
 		FF0A41F71B164F15003C2F87 /* NewBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBookViewController.swift; sourceTree = "<group>"; };
-		FF0A89051B1791C30099B8E8 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		FF2EEE421B1CCBD400F34ADC /* FeedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedObject.swift; sourceTree = "<group>"; };
 		FF2EEE441B1CD7FF00F34ADC /* FeedScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedScrollView.swift; sourceTree = "<group>"; };
 		FF2EEE461B1CDA1E00F34ADC /* FeedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRequest.swift; sourceTree = "<group>"; };
@@ -136,7 +138,6 @@
 				FF0A41CC1B13BA61003C2F87 /* AppDelegate.swift */,
 				FF0A41CE1B13BA61003C2F87 /* ViewController.swift */,
 				FF0A41EF1B15058C003C2F87 /* User.swift */,
-				FF0A89051B1791C30099B8E8 /* UserData.swift */,
 				FF984C0C1B166758008D2EC3 /* LocationObject.swift */,
 				FF0A41F31B15F7DF003C2F87 /* CloudAccess.swift */,
 				FF0A41D01B13BA61003C2F87 /* Main.storyboard */,
@@ -160,6 +161,7 @@
 				C3613EE81B1E364300D26F43 /* CreateBookViewController.swift */,
 				C39AC3961B1D27A400A74A6A /* ApiBook.swift */,
 				C39AC3981B1D296800A74A6A /* Book.swift */,
+				C36537931B1F9F100058BAA8 /* UserData.swift */,
 				C39AC3921B1CF04700A74A6A /* MainViewController.swift */,
 				C3613EE61B1DEACC00D26F43 /* ApiBookTableViewCell.swift */,
 			);
@@ -257,10 +259,9 @@
 			};
 			buildConfigurationList = FF0A41C21B13BA61003C2F87 /* Build configuration list for PBXProject "ProjetoLivro" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = Portuguese;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = FF0A41BE1B13BA61003C2F87;
@@ -304,10 +305,10 @@
 				C39AC3971B1D27A400A74A6A /* ApiBook.swift in Sources */,
 				FF2EEE4D1B1E749B00F34ADC /* TradeWantViewController.swift in Sources */,
 				C361479B1B14FC8900512A9E /* ProfileViewController.swift in Sources */,
+				C36537941B1F9F100058BAA8 /* UserData.swift in Sources */,
 				C36147991B14EFE200512A9E /* HomeViewController.swift in Sources */,
 				C3613EE91B1E364300D26F43 /* CreateBookViewController.swift in Sources */,
 				FF2EEE451B1CD7FF00F34ADC /* FeedScrollView.swift in Sources */,
-				FF0A89061B1791C30099B8E8 /* UserData.swift in Sources */,
 				FF2EEE431B1CCBD400F34ADC /* FeedObject.swift in Sources */,
 				C3613EE71B1DEACC00D26F43 /* ApiBookTableViewCell.swift in Sources */,
 				C39AC3931B1CF04700A74A6A /* MainViewController.swift in Sources */,
@@ -352,6 +353,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FF0A41D11B13BA61003C2F87 /* Base */,
+				C36537951B1F9FF60058BAA8 /* pt */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -360,6 +362,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FF0A41D61B13BA61003C2F87 /* Base */,
+				C36537961B1F9FF60058BAA8 /* pt */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

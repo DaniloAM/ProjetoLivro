@@ -124,7 +124,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         
         if (isEmpty(id)){
             let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-            self.showViewController(secondViewController, sender: false)
+            self.navigationController?.pushViewController(secondViewController, animated: true)
+            //self.showViewController(secondViewController, sender: false)
             return false
         }
         

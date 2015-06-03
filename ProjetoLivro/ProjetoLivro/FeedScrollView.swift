@@ -114,7 +114,7 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     
     func showUserContact(sender: UIButton) {
         
-        println(sender.tag)
+        //println(sender.tag)
     
         if cellArray[sender.tag].showingContact == true {
             cellArray[sender.tag].showingContact = false

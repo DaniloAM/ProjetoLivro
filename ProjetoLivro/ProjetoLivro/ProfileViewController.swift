@@ -42,9 +42,6 @@ class ProfileViewController: MainViewController, UserUpdateDelegate, UIImagePick
         getInformationSuccessful()
         getUserInformation()
         
-        //WARNING: test-only *** WARNING: test-only
-        UserData.sharedInstance.user = User(email: "as@as.con", name: "as", lastName: "bs", password: "as", photo: UIImage(named: "alphaBody.png"), userID: "2380E3E2-DB09-4367-B877-62B156B5575F")
-        //WARNING: test-only *** WARNING: test-only
 
     }
 

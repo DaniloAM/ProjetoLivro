@@ -1,0 +1,159 @@
+
+/* Class = "UILabel"; text = "Por favor, digite uma pergunta e uma resposta de segurança, estes dados serão usados caso você esqueça a sua senha."; ObjectID = "1Db-nr-Ue7"; */
+"1Db-nr-Ue7.text" = "Por favor, digite uma pergunta e uma resposta de segurança, estes dados serão usados caso você esqueça a sua senha.";
+
+/* Class = "UITextField"; placeholder = "Confirmação de senha"; ObjectID = "5Th-zn-jy4"; */
+"5Th-zn-jy4.placeholder" = "Confirmação de senha";
+
+/* Class = "UINavigationItem"; title = "Perfil"; ObjectID = "5dl-32-vgp"; */
+"5dl-32-vgp.title" = "Perfil";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "7RD-Ku-FEp"; */
+"7RD-Ku-FEp.placeholder" = "Email";
+
+/* Class = "UITextField"; text = "bruno@bruno.com"; ObjectID = "7RD-Ku-FEp"; */
+"7RD-Ku-FEp.text" = "bruno@bruno.com";
+
+/* Class = "UILabel"; text = "Estamos procurando o livro, por favor aguarde um momento..."; ObjectID = "7l6-bH-eye"; */
+"7l6-bH-eye.text" = "Estamos procurando o livro, por favor aguarde um momento...";
+
+/* Class = "UITextField"; placeholder = "Nome"; ObjectID = "8Ye-j1-XX9"; */
+"8Ye-j1-XX9.placeholder" = "Nome";
+
+/* Class = "UITextField"; placeholder = "Sobrenome"; ObjectID = "8re-Dd-Muq"; */
+"8re-Dd-Muq.placeholder" = "Sobrenome";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "9g1-cQ-e2r"; */
+"9g1-cQ-e2r.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Responder"; ObjectID = "Dmt-U3-oUL"; */
+"Dmt-U3-oUL.normalTitle" = "Responder";
+
+/* Class = "UITextField"; placeholder = "Confime a nova senha"; ObjectID = "FsP-0D-dCP"; */
+"FsP-0D-dCP.placeholder" = "Confime a nova senha";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Gcr-r1-pPd"; */
+"Gcr-r1-pPd.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Cancelar"; ObjectID = "IHh-sZ-wQe"; */
+"IHh-sZ-wQe.normalTitle" = "Cancelar";
+
+/* Class = "UIButton"; normalTitle = "Tire uma foto do livro"; ObjectID = "IhC-nn-9Pv"; */
+"IhC-nn-9Pv.normalTitle" = "Tire uma foto do livro";
+
+/* Class = "UILabel"; text = "Estado do livro"; ObjectID = "JG6-oT-x7s"; */
+"JG6-oT-x7s.text" = "Estado do livro";
+
+/* Class = "UITextField"; placeholder = "Pergunta de segurança"; ObjectID = "K49-rI-wcc"; */
+"K49-rI-wcc.placeholder" = "Pergunta de segurança";
+
+/* Class = "UILabel"; text = "Author"; ObjectID = "KwG-50-rTc"; */
+"KwG-50-rTc.text" = "Author";
+
+/* Class = "UITextField"; placeholder = "Resposta"; ObjectID = "LP3-pb-r7X"; */
+"LP3-pb-r7X.placeholder" = "Resposta";
+
+/* Class = "UINavigationItem"; title = "Meus livros"; ObjectID = "NH6-G9-UTN"; */
+"NH6-G9-UTN.title" = "Meus livros";
+
+/* Class = "UIViewController"; title = "Profile"; ObjectID = "Q7u-0S-dfh"; */
+"Q7u-0S-dfh.title" = "Profile";
+
+/* Class = "UILabel"; text = "Label teste label teste label teste label teste label teste label teste label teste label  teste label  teste label "; ObjectID = "TNa-ks-PCm"; */
+"TNa-ks-PCm.text" = "Label teste label teste label teste label teste label teste label teste label teste label  teste label  teste label ";
+
+/* Class = "UITextField"; placeholder = "Senha"; ObjectID = "Vc1-mY-jml"; */
+"Vc1-mY-jml.placeholder" = "Senha";
+
+/* Class = "UILabel"; text = "Publish"; ObjectID = "VjB-9s-B02"; */
+"VjB-9s-B02.text" = "Publish";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Xlg-sU-5c3"; */
+"Xlg-sU-5c3.text" = "Title";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Xln-RE-wU5"; */
+"Xln-RE-wU5.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Nova senha"; ObjectID = "Y6B-LB-OiK"; */
+"Y6B-LB-OiK.placeholder" = "Nova senha";
+
+/* Class = "UIButton"; normalTitle = "Enviar"; ObjectID = "Zo7-7Z-9op"; */
+"Zo7-7Z-9op.normalTitle" = "Enviar";
+
+/* Class = "UIButton"; normalTitle = "Voltar"; ObjectID = "asH-HK-aWb"; */
+"asH-HK-aWb.normalTitle" = "Voltar";
+
+/* Class = "UIButton"; normalTitle = "Cancelar"; ObjectID = "bCM-fx-rjo"; */
+"bCM-fx-rjo.normalTitle" = "Cancelar";
+
+/* Class = "UINavigationItem"; title = "Meus locais"; ObjectID = "bdx-PE-330"; */
+"bdx-PE-330.title" = "Meus locais";
+
+/* Class = "UIButton"; normalTitle = "Cadastrar-me"; ObjectID = "cFp-KB-KJE"; */
+"cFp-KB-KJE.normalTitle" = "Cadastrar-me";
+
+/* Class = "UIButton"; normalTitle = "Esqueci minha senha"; ObjectID = "edK-Ii-r8h"; */
+"edK-Ii-r8h.normalTitle" = "Esqueci minha senha";
+
+/* Class = "UILabel"; text = "Publish"; ObjectID = "els-gZ-pl6"; */
+"els-gZ-pl6.text" = "Publish";
+
+/* Class = "UIButton"; normalTitle = "Cadastrar"; ObjectID = "exy-kl-8me"; */
+"exy-kl-8me.normalTitle" = "Cadastrar";
+
+/* Class = "UILabel"; text = "Estamos procurando seus dados, por favor aguarde..."; ObjectID = "h0E-vm-40n"; */
+"h0E-vm-40n.text" = "Estamos procurando seus dados, por favor aguarde...";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "hLa-xL-3Ou"; */
+"hLa-xL-3Ou.text" = "Title";
+
+/* Class = "UINavigationItem"; title = "Novo Livro"; ObjectID = "hWZ-er-Jdf"; */
+"hWZ-er-Jdf.title" = "Novo Livro";
+
+/* Class = "UITextField"; placeholder = "Senha"; ObjectID = "klL-Il-i1l"; */
+"klL-Il-i1l.placeholder" = "Senha";
+
+/* Class = "UIBarButtonItem"; title = "Salvar"; ObjectID = "nNf-5g-J6r"; */
+"nNf-5g-J6r.title" = "Salvar";
+
+/* Class = "UITextField"; placeholder = "Resposta de segurança"; ObjectID = "nvE-DI-BGK"; */
+"nvE-DI-BGK.placeholder" = "Resposta de segurança";
+
+/* Class = "UILabel"; text = "Digite a sua nova senha"; ObjectID = "nx3-5I-gAJ"; */
+"nx3-5I-gAJ.text" = "Digite a sua nova senha";
+
+/* Class = "UILabel"; text = "Estamos salvando seus dados, por favor aguarde um instante..."; ObjectID = "oJc-JF-gLa"; */
+"oJc-JF-gLa.text" = "Estamos salvando seus dados, por favor aguarde um instante...";
+
+/* Class = "UINavigationItem"; title = "Novo livro"; ObjectID = "oO7-fg-nWq"; */
+"oO7-fg-nWq.title" = "Novo livro";
+
+/* Class = "UILabel"; text = "Estamos procurando seus dados, por favor espere um momento..."; ObjectID = "oRH-Xw-Vv7"; */
+"oRH-Xw-Vv7.text" = "Estamos procurando seus dados, por favor espere um momento...";
+
+/* Class = "UILabel"; text = "Estamos procrando seus dados de acesso, por favor aguarde um instante..."; ObjectID = "q0m-jp-CbZ"; */
+"q0m-jp-CbZ.text" = "Estamos procrando seus dados de acesso, por favor aguarde um instante...";
+
+/* Class = "UILabel"; text = "Author"; ObjectID = "qC5-OJ-hWw"; */
+"qC5-OJ-hWw.text" = "Author";
+
+/* Class = "UILabel"; text = "Estamos salvando os dados do livro, por favor aguarde..."; ObjectID = "qCf-MP-8wN"; */
+"qCf-MP-8wN.text" = "Estamos salvando os dados do livro, por favor aguarde...";
+
+/* Class = "UIButton"; normalTitle = "Responder"; ObjectID = "rnp-mA-fvn"; */
+"rnp-mA-fvn.normalTitle" = "Responder";
+
+/* Class = "UIButton"; normalTitle = "Adicionar foto"; ObjectID = "spm-Pt-1Rb"; */
+"spm-Pt-1Rb.normalTitle" = "Adicionar foto";
+
+/* Class = "UIButton"; normalTitle = "Alterar senha"; ObjectID = "tAP-g9-vzp"; */
+"tAP-g9-vzp.normalTitle" = "Alterar senha";
+
+/* Class = "UILabel"; text = "Pergunta de segurança?"; ObjectID = "wX9-fL-7Ny"; */
+"wX9-fL-7Ny.text" = "Pergunta de segurança?";
+
+/* Class = "UIButton"; normalTitle = "Cadastrar"; ObjectID = "xcy-2z-yi8"; */
+"xcy-2z-yi8.normalTitle" = "Cadastrar";
+
+/* Class = "UINavigationItem"; title = "Ofertas"; ObjectID = "zYg-dR-71u"; */
+"zYg-dR-71u.title" = "Ofertas";

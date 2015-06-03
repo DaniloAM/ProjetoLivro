@@ -96,7 +96,7 @@ class CreateBookViewController: MainViewController, BookCreateDelegate, UIImageP
     @IBAction func takePhoto(sender: UIButton) {
         sender.setTitle("", forState: UIControlState.Normal)
         
-        imagePicker =  UIImagePickerController()
+        imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .Camera
         
