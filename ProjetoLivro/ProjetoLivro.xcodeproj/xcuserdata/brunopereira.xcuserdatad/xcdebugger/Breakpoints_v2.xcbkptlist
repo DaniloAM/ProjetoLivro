@@ -51,5 +51,85 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProjetoLivro/CreateBookViewController.swift"
+            timestampString = "455030221.106344"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "validateFailed(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ProjetoLivro.CreateBookViewController.validateFailed (ProjetoLivro.CreateBookViewController)(Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "ProjetoLivro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brunopereira/Documents/Projetos%20iOS/ProjetoLivro/ProjetoLivro/ProjetoLivro/CreateBookViewController.swift"
+                  timestampString = "455039865.475606"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for ProjetoLivro.BookCreateDelegate.validateFailed &lt;A : ProjetoLivro.BookCreateDelegate&gt;(ProjetoLivro.BookCreateDelegate.Self)(Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; () in conformance ProjetoLivro.CreateBookViewController : ProjetoLivro.BookCreateDelegate in ProjetoLivro"
+                  moduleName = "ProjetoLivro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brunopereira/Documents/Projetos%20iOS/ProjetoLivro/ProjetoLivro/ProjetoLivro/CreateBookViewController.swift"
+                  timestampString = "455039865.475828"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProjetoLivro/CreateBookViewController.swift"
+            timestampString = "455031774.992005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "createBook(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProjetoLivro/Book.swift"
+            timestampString = "455035338.988513"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "create()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
