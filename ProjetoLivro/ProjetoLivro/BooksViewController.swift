@@ -51,7 +51,7 @@ class BooksViewController: UIViewController, BookSearchDelegate, UITableViewData
         let cell = tableView.dequeueReusableCellWithIdentifier("BookCell") as! ApiBookTableViewCell
         
         cell.bookTitle.text = (data[indexPath.row]).name
-        cell.bookInformation.text = (data[indexPath.row]).author
+        cell.bookInformation.text = (data[indexPath.row]).stateID
         
         if ((data[indexPath.row]).coverPhoto != nil){
             cell.bookImage.image = (data[indexPath.row]).coverPhoto

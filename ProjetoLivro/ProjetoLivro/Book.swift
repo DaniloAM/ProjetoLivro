@@ -69,8 +69,10 @@ class Book: NSObject {
                             book.bookID = bookRecord.recordID.recordName
                             book.apiLink = bookRecord.valueForKey("APILink") as! String
                             book.stateID = bookRecord.valueForKey("StateID") as! String
+                            book.name = bookRecord.valueForKey("Name") as! String
+                            book.coverPhoto = self.getBookPhoto(bookRecord, key: "CoverPhoto")
                             
-                            book = apiBook.getAllApiInformation(book)
+                            //book = apiBook.getAllApiInformation(book)
                             
                             books.append(book)
                         }
@@ -81,6 +83,18 @@ class Book: NSObject {
             }
         }
     }
+    
+    private func getBookPhoto(record:CKRecord, key:String) ->UIImage? {
+        
+        if let asset:CKAsset = record.objectForKey(key) as? CKAsset {
+            if let data: NSData = NSData(contentsOfURL: asset.fileURL) {
+                return UIImage(data: data)
+            }
+        }
+        
+        return nil
+    }
+    
     
     
     func create(){

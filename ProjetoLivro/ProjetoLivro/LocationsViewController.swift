@@ -30,11 +30,16 @@ class LocationsViewController: UIViewController, LocationCreationDelegate, CLLoc
         tableView.delegate = self
         tableView.dataSource = self
         
-        if let str = UserData.sharedInstance.user?.userID {
-            var location = LocationObject()
-            location.delegate = self
-            location.getLocationsOfUserID(str)
+        var id = ""
+        var userDefaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        if (userDefaults.objectForKey("UserID") != nil) {
+            id = userDefaults.stringForKey("UserID")!
         }
+        
+        var location = LocationObject()
+        location.delegate = self
+        location.getLocationsOfUserID(id)
     }
     
     override func viewWillAppear(animated: Bool) {

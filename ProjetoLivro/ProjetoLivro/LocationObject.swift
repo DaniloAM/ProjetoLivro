@@ -62,7 +62,15 @@ class LocationObject: NSObject, CLLocationManagerDelegate {
         locationID = record.recordID.recordName
         record.setValue(location, forKey: "Location")
         record.setValue(1, forKey: "IsFix")
-        record.setValue(UserData.sharedInstance.user?.userID, forKey: "UserID")
+        
+        var id = ""
+        var userDefaults : NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        if (userDefaults.objectForKey("UserID") != nil) {
+            id = userDefaults.stringForKey("UserID")!
+        }
+        
+        record.setValue(id, forKey: "UserID")
         
         publicData.saveRecord(record, completionHandler: { (record, error: NSError!) -> Void in if error != nil {
             //Error in recording
