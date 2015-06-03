@@ -838,10 +838,10 @@
             </objects>
             <point key="canvasLocation" x="1292.5" y="1323.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Trade Offer View Controller-->
         <scene sceneID="Kpj-0z-Poj">
             <objects>
-                <viewController id="v3D-iv-p7l" sceneMemberID="viewController">
+                <viewController id="v3D-iv-p7l" customClass="TradeOfferViewController" customModule="ProjetoLivro" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Esv-ec-rpg"/>
                         <viewControllerLayoutGuide type="bottom" id="cHS-1q-I0Z"/>
@@ -938,7 +938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2lT-zy-5LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1757.5" y="444.5"/>
+            <point key="canvasLocation" x="1757.5" y="438.5"/>
         </scene>
         <!--Profile-->
         <scene sceneID="baq-JN-lb8">
@@ -1658,10 +1658,10 @@
             </objects>
             <point key="canvasLocation" x="3237" y="1323"/>
         </scene>
-        <!--View Controller-->
+        <!--Trade Want View Controller-->
         <scene sceneID="E9M-xt-44s">
             <objects>
-                <viewController id="qqI-F6-VYa" sceneMemberID="viewController">
+                <viewController id="qqI-F6-VYa" customClass="TradeWantViewController" customModule="ProjetoLivro" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GXD-4e-6ZP"/>
                         <viewControllerLayoutGuide type="bottom" id="I0P-cX-SMu"/>

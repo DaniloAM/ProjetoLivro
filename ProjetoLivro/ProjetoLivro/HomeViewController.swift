@@ -20,6 +20,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
     var locationManager:CLLocationManager!
     var numberOfFeeds: Int!
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

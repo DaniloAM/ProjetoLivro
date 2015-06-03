@@ -10,15 +10,18 @@ import UIKit
 
 class TradeOfferViewController: UIViewController {
 
+    var yourScrollView:UIScrollView?
+    
     override func viewDidLoad() {
+        
+        //yourScrollView = UIScrollView(frame: CGRectMake(x: 0, y: CGFloat, width: view.frame.size.width, height: view.frame.size.height))
+        
+        
+        
         super.viewDidLoad()
-
+        
+        
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
 }
