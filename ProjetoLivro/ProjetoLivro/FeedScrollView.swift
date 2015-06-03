@@ -114,24 +114,37 @@ class FeedScrollView: UIScrollView, UIScrollViewDelegate, FeedRequestDelegate {
     
     func showUserContact(sender: UIButton) {
         
-//        var email = feedObjectArray[sender.tag].user?.email
-//        var name = feedObjectArray[sender.tag].user?.name
-//        
-//        var str:String = "Contato com " + name! + ": " + email!
-//        
-//        var
-//        
-//        var alertController = UIAlertController(title: "Contato.", message: str, preferredStyle: UIAlertControllerStyle.Alert)
-//        
-//        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in
-//            alertController.dismissViewControllerAnimated(true, completion: nil)
-//        }
-//        
-//        alertController.addAction(cancelAction)
-//        
-//        self.superview?.addSubview(alertController)
+        println(sender.tag)
         
+        var email = feedObjectArray[sender.tag].user?.email
+        var name = feedObjectArray[sender.tag].user?.name
         
+        var str:String = "Contato com " + name! + ": " + email!
+        
+        var view:UIView = UIView(frame: cellArray[sender.tag].frame)
+        view.backgroundColor = UIColor.blackColor()
+        
+        var labelUser = UILabel(frame: view.frame)
+        var button = UIButton(frame: view.frame)
+        
+        button.addTarget(view, action: "removeContactView:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        view.frame.origin.y = 0
+        labelUser.frame.origin.y = 0
+        button.frame.origin.y = 0
+        labelUser.text = str
+        labelUser.textColor = UIColor.whiteColor()
+        labelUser.font = UIFont(name: "Avenir", size: 15.0)
+        labelUser.backgroundColor = UIColor.clearColor()
+        
+        view.addSubview(labelUser)
+        view.addSubview(button)
+        cellArray[sender.tag].addSubview(view)
+        
+    }
+    
+    func removeContactView(sender: UIView) {
+        sender.removeFromSuperview()
     }
     
     func updateCells() {
