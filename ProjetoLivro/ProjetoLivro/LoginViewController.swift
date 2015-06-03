@@ -28,7 +28,7 @@ class LoginViewController: MainViewController, UserLoginDelegate {
         self.navigationController?.navigationBar.hidden = true
         self.navigationController?.navigationBar.translucent = false
     }
-
+    
     @IBAction func logIn() {
         textResign()
         

@@ -28,7 +28,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         locationManager = CLLocationManager()
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
-
     }
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
