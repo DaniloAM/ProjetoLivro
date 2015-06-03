@@ -28,6 +28,8 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         locationManager = CLLocationManager()
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+
     }
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -53,15 +55,14 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, CLLocationMana
         let barSize = 0.0
         let cellSize = self.view.frame.size.height / CGFloat(5.0)
         
-        var frame = CGRect(x: 0, y: CGFloat(barSize), width: self.view.frame.size.width, height: CGFloat(self.view.frame.size.height - CGFloat(barSize)))
+        var frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: CGFloat(self.view.frame.size.height - CGFloat(barSize)))
         
         feedScrollView = FeedScrollView(frame: frame, userLocation: locationManager.location, superview: self.view)
+        self.view.addSubview(feedScrollView)
         locationManager.stopUpdatingLocation()
         
         feedScrollView.showsVerticalScrollIndicator = false
         feedScrollView.backgroundColor = UIColor(red: 38 / 255, green: 61 / 255, blue: 79 / 255, alpha: 1.0)
-        
-        
     }
     
     
