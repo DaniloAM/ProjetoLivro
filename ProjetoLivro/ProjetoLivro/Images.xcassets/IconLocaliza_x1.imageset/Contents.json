@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "IconLocaliza_x1-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "IconLocaliza_x1.png"
+      "filename" : "IconLocaliza_x2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "IconLocaliza_x3.png"
     }
   ],
   "info" : {

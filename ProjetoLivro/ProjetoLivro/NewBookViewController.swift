@@ -72,12 +72,29 @@ class NewBookViewController: MainViewController, UITableViewDataSource, UITableV
         
         cell.bookTitle.text = (data[indexPath.row]).name
         cell.bookInformation.text = (data[indexPath.row]).author
-        cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        if ((data[indexPath.row]).coverPhoto != nil){
+            cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        }else{
+            (data[indexPath.row]).coverPhoto = cell.bookImage.image
+        }
         cell.bookPublish.text = (data[indexPath.row]).publish
         
         println((data[indexPath.row]).apiLink)
         
         return cell;
+    }
+    
+    let creteBookSegue = "CreateBook"
+    
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == creteBookSegue {
+            if let destination = segue.destinationViewController as? CreateBookViewController {
+                if let bookIndex = tableView.indexPathForSelectedRow()?.row {
+                    destination.book = data[bookIndex]
+                }
+            }
+        }
     }
     
     // WAITING

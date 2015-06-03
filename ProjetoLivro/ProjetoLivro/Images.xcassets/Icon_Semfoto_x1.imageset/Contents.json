@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "Icon_Semfoto_x1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "IconVoltar_x1.png"
+      "filename" : "Icon_Semfoto_x2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Icon_Semfoto_x3.png"
     }
   ],
   "info" : {

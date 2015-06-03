@@ -26,7 +26,7 @@ class ApiBook: NSObject {
         
         if (!isEmpty(search)) {
             var nameConvert: String = search.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            url = "https://www.googleapis.com/books/v1/volumes?q=" + nameConvert + "&langRestrict=pt"
+            url = "https://www.googleapis.com/books/v1/volumes?q=" + nameConvert + "&langRestrict=pt&key=AIzaSyBpNHiFsKaEKvBGreQWeZo8V79UdEaL9PE"
             
             var couldFind: Bool = false
             
@@ -39,7 +39,13 @@ class ApiBook: NSObject {
                                 
                                 var book = Book.new()
                                 
+                                
                                 if let firstResult: NSDictionary = searchBook as? NSDictionary{
+                                    
+                                    if let link: String = firstResult.objectForKey("selfLink") as? String{
+                                        book.apiLink = link
+                                    }
+                                    
                                     if let bookInfo: NSDictionary = firstResult.objectForKey("volumeInfo") as? NSDictionary {
                                         
                                         if let bookName: String = bookInfo.objectForKey("title") as? String {
@@ -56,9 +62,7 @@ class ApiBook: NSObject {
                                             book.publish = year
                                         }
                                         
-                                        if let link: String = bookInfo.objectForKey("selfLink") as? String{
-                                            book.apiLink = link
-                                        }
+                                        
                                         
                                         if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {
                                             if let urlImage: String = imageLinks.objectForKey("smallThumbnail") as? String {
@@ -151,6 +155,10 @@ class ApiBook: NSObject {
                         
                         if let bookName: String = bookInfo.objectForKey("title") as? String {
                             book.name = bookName
+                        }
+                        
+                        if let link: String = bookInfo.objectForKey("selfLink") as? String{
+                            book.apiLink = link
                         }
                         
                         if let imageLinks: NSDictionary = bookInfo.objectForKey("imageLinks") as? NSDictionary {

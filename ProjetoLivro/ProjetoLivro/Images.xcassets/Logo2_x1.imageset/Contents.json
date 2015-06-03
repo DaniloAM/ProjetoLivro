@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "Logo2_x1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Login_Facebook_x1.png"
+      "filename" : "Logo2_x2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Logo2_x3.png"
     }
   ],
   "info" : {

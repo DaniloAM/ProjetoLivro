@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "IconSair_x1-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "IconSair_x1.png"
+      "filename" : "IconSair_x2.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "IconSair_x3.png"
     }
   ],
   "info" : {

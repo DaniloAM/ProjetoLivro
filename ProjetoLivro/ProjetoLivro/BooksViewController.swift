@@ -52,7 +52,10 @@ class BooksViewController: UIViewController, BookSearchDelegate, UITableViewData
         
         cell.bookTitle.text = (data[indexPath.row]).name
         cell.bookInformation.text = (data[indexPath.row]).author
-        cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        
+        if ((data[indexPath.row]).coverPhoto != nil){
+            cell.bookImage.image = (data[indexPath.row]).coverPhoto
+        }
         cell.bookPublish.text = (data[indexPath.row]).publish
         
         println((data[indexPath.row]).apiLink)
